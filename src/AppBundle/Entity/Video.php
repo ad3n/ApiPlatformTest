@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\ResourceInterface;
 use AppBundle\Asset\ResourceOwner;
@@ -11,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
- * @ApiResource()
  * @ORM\Entity()
  * @ORM\Table(name="videos")
  *

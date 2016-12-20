@@ -2,20 +2,17 @@
 
 namespace AppBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\OwnerableInterface;
 use AppBundle\Model\CertificateInterface;
 use AppBundle\Model\JewelryInterface;
-use AppBundle\Model\ProductInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
+use AppBundle\Product\ProductInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
  * @ORM\Entity()
  * @ORM\Table(name="diamonds")
  *
@@ -166,9 +163,15 @@ class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface,
      * @var float
      *
      * @ORM\Column(type="float")
-     * @Groups({"get"})
      */
     private $price;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $tax;
 
     /**
      * @var string
@@ -509,6 +512,22 @@ class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface,
     public function setPrice(float $price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTax(): float
+    {
+        return $this->tax;
+    }
+
+    /**
+     * @param float $tax
+     */
+    public function setTax(float $tax)
+    {
+        $this->tax = $tax;
     }
 
     /**

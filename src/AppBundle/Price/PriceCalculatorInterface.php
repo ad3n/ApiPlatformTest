@@ -9,8 +9,6 @@ interface PriceCalculatorInterface
 {
     /**
      * @param PricableInterface $pricable
-     *
-     * @return float
      */
     public function calculate(PricableInterface $pricable);
 }

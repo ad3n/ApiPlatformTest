@@ -5,6 +5,7 @@ namespace AppBundle\Price;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 
 /**
@@ -23,18 +24,18 @@ class PriceFactory implements ContainerAwareInterface
     private $objectManager;
 
     /**
-     * @var PriceLogInterface
+     * @var string
      */
-    private $priceLog;
+    private $priceLogClass;
 
     /**
-     * @param ObjectManager     $objectManager
-     * @param PriceLogInterface $priceLog
+     * @param ObjectManager $objectManager
+     * @param string        $priceLogClass
      */
-    public function __construct(ObjectManager $objectManager, PriceLogInterface $priceLog)
+    public function __construct(ObjectManager $objectManager, string $priceLogClass)
     {
         $this->objectManager = $objectManager;
-        $this->priceLog = $priceLog;
+        $this->priceLogClass = $priceLogClass;
     }
 
     /**
@@ -57,12 +58,17 @@ class PriceFactory implements ContainerAwareInterface
             throw new ServiceNotFoundException($serviceId);
         }
 
-        $price = $calculator->calculate($pricable);
-        $pricable->setPrice($price);
+        $calculator->calculate($pricable);
 
-        $this->priceLog->setSource($pricable);
-        $this->priceLog->setDateTime(new \DateTime());
-        $this->objectManager->persist($this->priceLog);
+        /** @var PriceLogInterface $priceLogger */
+        $priceLogger = new $this->priceLogClass();
+        if (!$priceLogger instanceof PriceLogInterface) {
+            throw new InvalidArgumentException(sprintf('Class %s is not implements "\AppBundle\Price\PriceLogInterface"'));
+        }
+
+        $priceLogger->setSource($pricable);
+        $priceLogger->setDateTime(new \DateTime());
+        $this->objectManager->persist($priceLogger);
         $this->objectManager->flush();
     }
 }

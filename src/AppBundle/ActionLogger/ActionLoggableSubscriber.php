@@ -80,7 +80,7 @@ class ActionLoggableSubscriber implements EventSubscriber
     /**
      * @param ActionLoggable $loggable
      */
-    public function updateActionLog(ActionLoggable $loggable)
+    private function updateActionLog(ActionLoggable $loggable)
     {
         if (!$token = $this->tokenStorage->getToken()) {
             return;

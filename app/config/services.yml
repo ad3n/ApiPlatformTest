@@ -4,10 +4,16 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.action_logger.subscriber:
+    app.action_logger.action_logger_subscriber:
         class: AppBundle\ActionLogger\ActionLoggableSubscriber
         arguments:
             - '@security.token_storage'
         tags:
             - { name: doctrine.event_subscriber }
 
+    app.price.price_calculator_subscriber:
+        class: AppBundle\Price\PriceCalculatorSubscriber
+        arguments:
+            - '@app.price.price_factory'
+        tags:
+            - { name: doctrine.event_subscriber }

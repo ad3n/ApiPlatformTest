@@ -1,0 +1,13 @@
+services:
+    app.price.price_factory:
+        class: AppBundle\Price\PriceFactory
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'AppBundle\Entity\PriceLog'
+        calls:
+            - [setContainer, ['@service_container']]
+
+    app.price.price_without_tax:
+        class: AppBundle\Price\PriceWithoutTaxCalculator
+        tags:
+            - { name: price_calculator }

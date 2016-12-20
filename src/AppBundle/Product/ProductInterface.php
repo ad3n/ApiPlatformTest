@@ -1,6 +1,8 @@
 <?php
 
-namespace AppBundle\Model;
+namespace AppBundle\Product;
+
+use AppBundle\Model\SupplierInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -48,9 +50,24 @@ interface ProductInterface
     public function getDescription(): string;
 
     /**
+     * @param float $price
+     */
+    public function setPrice(float $price);
+
+    /**
      * @return float
      */
     public function getPrice(): float;
+
+    /**
+     * @param float $tax
+     */
+    public function setTax(float $tax);
+
+    /**
+     * @return float
+     */
+    public function getTax(): float;
 
     /**
      * @return string

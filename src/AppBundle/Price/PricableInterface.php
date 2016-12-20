@@ -25,6 +25,16 @@ interface PricableInterface extends OwnerableInterface
     public function setPrice(float $price);
 
     /**
+     * @param float $tax
+     */
+    public function setTax(float $tax);
+
+    /**
+     * @return float
+     */
+    public function getTax(): float;
+
+    /**
      * @return string
      */
     public function getPriceCalculatorServiceId(): string;
