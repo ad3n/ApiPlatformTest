@@ -6,9 +6,9 @@ use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\OwnerableInterface;
 use AppBundle\Model\CertificateInterface;
 use AppBundle\Model\JewelryInterface;
+use AppBundle\Model\ProductInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
-use AppBundle\Product\ProductInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 

@@ -11,9 +11,14 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    app.price.price_calculator_subscriber:
-        class: AppBundle\Price\PriceCalculatorSubscriber
+    app.asset.asset_uploader:
+        class: AppBundle\Asset\AssetUploader
         arguments:
-            - '@app.price.price_factory'
+            - '%kernel.root_dir%/../web/uploads'
+
+    app.asset.action_logger_subscriber:
+        class: AppBundle\Asset\AssetSubscriber
+        arguments:
+            - '@app.asset.asset_uploader'
         tags:
             - { name: doctrine.event_subscriber }

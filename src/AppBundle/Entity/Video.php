@@ -8,6 +8,8 @@ use AppBundle\Asset\ResourceOwner;
 use AppBundle\Asset\ResourceOwnerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity()
@@ -56,6 +58,16 @@ class Video implements ResourceInterface
      * @ORM\Column(type="boolean")
      */
     private $isPinned;
+
+    /**
+     * @var File
+     */
+    private $file;
+
+    /**
+     * @var UploadedFile
+     */
+    private $uploadedFile;
 
     public function __construct()
     {
@@ -116,11 +128,36 @@ class Video implements ResourceInterface
     }
 
     /**
-     * @param string $fileLocation
+     * @return File
      */
-    public function setFileLocation(string $fileLocation)
+    public function getFile(): File
     {
-        $this->fileLocation = $fileLocation;
+        return $this->file;
+    }
+
+    /**
+     * @param File $file
+     */
+    public function setFile(File $file)
+    {
+        $this->file = $file;
+        $this->fileLocation = $file->getFilename();
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getUploadedFile(): UploadedFile
+    {
+        return $this->uploadedFile;
+    }
+
+    /**
+     * @param UploadedFile $file
+     */
+    public function setUploadedFile(UploadedFile $file)
+    {
+        $this->uploadedFile = $file;
     }
 
     /**

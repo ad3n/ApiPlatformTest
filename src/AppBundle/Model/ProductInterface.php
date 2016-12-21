@@ -1,8 +1,6 @@
 <?php
 
-namespace AppBundle\Product;
-
-use AppBundle\Model\SupplierInterface;
+namespace AppBundle\Model;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>

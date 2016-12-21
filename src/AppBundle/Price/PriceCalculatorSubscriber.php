@@ -4,6 +4,7 @@ namespace AppBundle\Price;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**
@@ -37,9 +38,9 @@ class PriceCalculatorSubscriber implements EventSubscriber
     }
 
     /**
-     * @param LifecycleEventArgs $eventArgs
+     * @param PreUpdateEventArgs $eventArgs
      */
-    public function preUpdate(LifecycleEventArgs $eventArgs)
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
         /** @var PricableInterface $entity */
         $entity = $eventArgs->getEntity();

@@ -5,6 +5,7 @@ namespace AppBundle\ActionLogger;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -61,20 +62,24 @@ class ActionLoggableSubscriber implements EventSubscriber
         /** @var ActionLoggable $entity */
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
-            $this->updateActionLog($entity);
+            return;
         }
+
+        $this->updateActionLog($entity);
     }
 
     /**
-     * @param LifecycleEventArgs $eventArgs
+     * @param PreUpdateEventArgs $eventArgs
      */
-    public function preUpdate(LifecycleEventArgs $eventArgs)
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
         /** @var ActionLoggable $entity */
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
-            $this->updateActionLog($entity);
+            return;
         }
+
+        $this->updateActionLog($entity);
     }
 
     /**

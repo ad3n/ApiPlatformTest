@@ -2,6 +2,9 @@
 
 namespace AppBundle\Asset;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -31,4 +34,24 @@ interface ResourceInterface
      * @return string
      */
     public function getFileLocation(): string;
+
+    /**
+     * @param File $fileLocation
+     */
+    public function setFile(File $fileLocation);
+
+    /**
+     * @return File
+     */
+    public function getFile(): File;
+
+    /**
+     * @param UploadedFile $uploadedFile
+     */
+    public function setUploadedFile(UploadedFile $uploadedFile);
+
+    /**
+     * @return UploadedFile
+     */
+    public function getUploadedFile(): UploadedFile;
 }
