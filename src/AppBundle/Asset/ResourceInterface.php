@@ -21,14 +21,24 @@ interface ResourceInterface
     public function getGroup(): string;
 
     /**
-     * @param ResourceOwnerInterface $owner
+     * @param string $owner
      */
-    public function setOwner(ResourceOwnerInterface $owner);
+    public function setOwner(string $owner);
 
     /**
-     * @return ResourceOwnerInterface
+     * @return string
      */
-    public function getOwner(): ResourceOwnerInterface;
+    public function getOwner(): string;
+
+    /**
+     * @param int $sourceId
+     */
+    public function setSourceId(int $sourceId);
+
+    /**
+     * @return int
+     */
+    public function getSourceId(): int;
 
     /**
      * @return string
@@ -54,4 +64,9 @@ interface ResourceInterface
      * @return UploadedFile
      */
     public function getUploadedFile(): UploadedFile;
+
+    /**
+     * @return bool
+     */
+    public function isPinned(): bool;
 }

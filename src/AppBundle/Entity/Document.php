@@ -4,8 +4,6 @@ namespace AppBundle\Entity;
 
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\ResourceInterface;
-use AppBundle\Asset\ResourceOwner;
-use AppBundle\Asset\ResourceOwnerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Component\HttpFoundation\File\File;
@@ -44,6 +42,13 @@ class Document implements ResourceInterface
      * @ORM\Column(type="string")
      */
     private $owner;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $sourceId;
 
     /**
      * @var string
@@ -99,24 +104,35 @@ class Document implements ResourceInterface
     }
 
     /**
-     * @return ResourceOwnerInterface
+     * @return string
      */
-    public function getOwner(): ResourceOwnerInterface
+    public function getOwner(): string
     {
-        $resourceOwner = new ResourceOwner();
-        if ($this->owner) {
-            $resourceOwner->unserialize($this->owner);
-        }
-
-        return $resourceOwner;
+        return $this->owner;
     }
 
     /**
-     * @param ResourceOwnerInterface $owner
+     * @param string $owner
      */
-    public function setOwner(ResourceOwnerInterface $owner)
+    public function setOwner(string $owner)
     {
-        $this->owner = $owner->serialize();
+        $this->owner = $owner;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSourceId(): int
+    {
+        return $this->sourceId;
+    }
+
+    /**
+     * @param int $sourceId
+     */
+    public function setSourceId(int $sourceId)
+    {
+        $this->sourceId = $sourceId;
     }
 
     /**

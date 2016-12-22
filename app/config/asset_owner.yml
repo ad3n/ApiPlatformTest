@@ -1,0 +1,5 @@
+services:
+    app.asset_owner.diamond:
+        class: AppBundle\Entity\Diamond
+        tags:
+            - { name: asset_owner }

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\OwnerableInterface;
 use AppBundle\Model\CertificateInterface;
-use AppBundle\Model\JewelryInterface;
+use AppBundle\Model\DiamondInterface;
 use AppBundle\Model\ProductInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
@@ -18,7 +18,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface, PricableInterface
+class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface, PricableInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -153,9 +153,10 @@ class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface,
     private $symmetry;
 
     /**
-     * @var string
+     * @var CertificateInterface
      *
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Certificate")
+     * @ORM\JoinColumn(name="certificate_id", referencedColumnName="id")
      */
     private $certificate;
 
@@ -484,10 +485,7 @@ class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface,
      */
     public function getCertificate(): CertificateInterface
     {
-        $certificate = new Certificate();
-        $certificate->unserialize($this->certificate);
-
-        return $certificate;
+        return $this->certificate;
     }
 
     /**
@@ -495,7 +493,7 @@ class Diamond implements JewelryInterface, ProductInterface, OwnerableInterface,
      */
     public function setCertificate(CertificateInterface $certificate)
     {
-        $this->certificate = $certificate->serialize();
+        $this->certificate = $certificate;
     }
 
     /**

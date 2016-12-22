@@ -5,7 +5,7 @@ namespace AppBundle\Model;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface JewelryInterface
+interface DiamondInterface
 {
     /**
      * @return float

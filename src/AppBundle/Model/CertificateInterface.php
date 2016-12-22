@@ -21,16 +21,4 @@ interface CertificateInterface
      * @return string
      */
     public function getProvider(): string;
-
-    /**
-     * @return string
-     */
-    public function serialize(): string;
-
-    /**
-     * @param string $string
-     *
-     * @return CertificateInterface
-     */
-    public function unserialize(string $string): CertificateInterface;
 }

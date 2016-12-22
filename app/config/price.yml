@@ -2,7 +2,6 @@ services:
     app.price.price_factory:
         class: AppBundle\Price\PriceFactory
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\PriceLog'
         calls:
             - [setContainer, ['@service_container']]

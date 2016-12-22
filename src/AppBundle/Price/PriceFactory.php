@@ -2,7 +2,6 @@
 
 namespace AppBundle\Price;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
@@ -19,22 +18,15 @@ class PriceFactory implements ContainerAwareInterface
     private $container;
 
     /**
-     * @var ObjectManager
-     */
-    private $objectManager;
-
-    /**
      * @var string
      */
     private $priceLogClass;
 
     /**
-     * @param ObjectManager $objectManager
-     * @param string        $priceLogClass
+     * @param string $priceLogClass
      */
-    public function __construct(ObjectManager $objectManager, string $priceLogClass)
+    public function __construct(string $priceLogClass)
     {
-        $this->objectManager = $objectManager;
         $this->priceLogClass = $priceLogClass;
     }
 
@@ -66,9 +58,11 @@ class PriceFactory implements ContainerAwareInterface
             throw new InvalidArgumentException(sprintf('Class %s is not implements "\AppBundle\Price\PriceLogInterface"'));
         }
 
+        $objectManager = $this->container->get('doctrine.orm.entity_manager');
+
         $priceLogger->setSource($pricable);
         $priceLogger->setDateTime(new \DateTime());
-        $this->objectManager->persist($priceLogger);
-        $this->objectManager->flush();
+        $objectManager->persist($priceLogger);
+        $objectManager->flush();
     }
 }
