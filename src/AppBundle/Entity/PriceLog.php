@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Price\PricableInterface;
 use AppBundle\Price\PriceLogInterface;
@@ -11,6 +12,8 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="price_logs")
+ *
+ * @ApiResource(collectionOperations={"get"={"method"="GET"}}, itemOperations={"get"={"method"="GET"}})
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */

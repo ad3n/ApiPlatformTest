@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Model\CertificateInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,6 +11,8 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="certificates")
+ *
+ * @ApiResource()
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */

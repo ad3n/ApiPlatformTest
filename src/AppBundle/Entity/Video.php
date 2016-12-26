@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\ResourceInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="videos")
+ *
+ * @ApiResource()
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
