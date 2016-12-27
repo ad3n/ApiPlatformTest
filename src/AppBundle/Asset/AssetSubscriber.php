@@ -62,7 +62,6 @@ class AssetSubscriber implements EventSubscriber
     {
         $file = $entity->getUploadedFile();
 
-        // only upload new files
         if (!$file instanceof UploadedFile) {
             return;
         }

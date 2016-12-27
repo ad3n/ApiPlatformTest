@@ -62,7 +62,7 @@ class PriceLog implements PriceLogInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $stringify;
 

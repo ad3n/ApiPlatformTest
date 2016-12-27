@@ -50,8 +50,6 @@ class PriceFactory implements ContainerAwareInterface
             throw new ServiceNotFoundException($serviceId);
         }
 
-        $calculator->calculate($pricable);
-
         /** @var PriceLogInterface $priceLogger */
         $priceLogger = new $this->priceLogClass();
         if (!$priceLogger instanceof PriceLogInterface) {
@@ -63,6 +61,9 @@ class PriceFactory implements ContainerAwareInterface
         $priceLogger->setSource($pricable);
         $priceLogger->setDateTime(new \DateTime());
         $objectManager->persist($priceLogger);
+
+        $calculator->calculate($pricable);
+
         $objectManager->flush();
     }
 }
