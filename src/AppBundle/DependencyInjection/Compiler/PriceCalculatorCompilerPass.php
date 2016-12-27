@@ -18,10 +18,13 @@ class PriceCalculatorCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $priceCalculators = [];
+        $indexStart = 1;
 
         $taggedServices = $container->findTaggedServiceIds(self::SERVICETAG);
         foreach ($taggedServices as $id => $tags) {
-            $priceCalculators[] = $id;
+            $priceCalculators[$indexStart] = $id;
+
+            ++$indexStart;
         }
 
         $container->setParameter(self::SERVICETAG, $priceCalculators);

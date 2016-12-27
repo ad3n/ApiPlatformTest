@@ -9,11 +9,11 @@ services:
     app.price.price_without_tax:
         class: AppBundle\Price\PriceWithoutTaxCalculator
         tags:
-            - { name: price_calculator }
+            - { name: 'price_calculator' }
 
     app.price.price_calculator_subscriber:
         class: AppBundle\Price\PriceCalculatorSubscriber
         arguments:
             - '@app.price.price_factory'
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: 'doctrine.event_subscriber' }

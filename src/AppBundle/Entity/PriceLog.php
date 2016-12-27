@@ -102,7 +102,7 @@ class PriceLog implements PriceLogInterface
     {
         $this->source = $pricable;
         $this->sourceId = $pricable->getId();
-        $this->owner = $pricable->getOwnerId();
+        $this->owner = get_class($pricable);
         $this->price = $pricable->getPrice();
 
         $this->stringify = $this->serialize();

@@ -12,7 +12,7 @@ class PriceWithoutTaxCalculator implements PriceCalculatorInterface
      */
     public function calculate(PricableInterface $pricable)
     {
-        $pricable->setPrice($pricable->getPrice());
+        $pricable->setPrice($pricable->getBasePrice() + ($pricable->getBasePrice() * $pricable->getProfitMargin()));
         $pricable->setTax(0);
     }
 }

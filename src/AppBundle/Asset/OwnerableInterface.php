@@ -7,8 +7,4 @@ namespace AppBundle\Asset;
  */
 interface OwnerableInterface
 {
-    /**
-     * @return string
-     */
-    public function getOwnerId(): string;
 }

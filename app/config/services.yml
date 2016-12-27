@@ -9,7 +9,7 @@ services:
         arguments:
             - '@security.token_storage'
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: 'doctrine.event_subscriber' }
 
     app.asset.asset_uploader:
         class: AppBundle\Asset\AssetUploader
@@ -21,4 +21,29 @@ services:
         arguments:
             - '@app.asset.asset_uploader'
         tags:
-            - { name: doctrine.event_subscriber }
+            - { name: 'doctrine.event_subscriber' }
+
+    app.owner.diamond:
+        class: AppBundle\Entity\Diamond
+        tags:
+            - { name: 'asset_owner' }
+
+    app.asset.data_provider.asset_owner_data_provider:
+        class: AppBundle\Asset\DataProvider\AssetOwnerDataProvider
+        arguments:
+            - '%asset_owner%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }
+
+    app.data_provider.price_calculator_collection_data_provider:
+        class: 'AppBundle\Price\DataProvider\PriceCalculatorDataProvider'
+        arguments:
+            - '%price_calculator%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }

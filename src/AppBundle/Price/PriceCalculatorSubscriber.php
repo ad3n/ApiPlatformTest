@@ -28,23 +28,23 @@ class PriceCalculatorSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
         /** @var PricableInterface $entity */
         $entity = $eventArgs->getEntity();
-        if (!$entity instanceof PricableInterface) {
+        if ($entity instanceof PricableInterface) {
             $this->updatePrice($entity);
         }
     }
 
     /**
-     * @param PreUpdateEventArgs $eventArgs
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         /** @var PricableInterface $entity */
         $entity = $eventArgs->getEntity();
-        if (!$entity instanceof PricableInterface) {
+        if ($entity instanceof PricableInterface) {
             $this->updatePrice($entity);
         }
     }
@@ -64,6 +64,6 @@ class PriceCalculatorSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [Events::prePersist, Events::preUpdate];
+        return [Events::postPersist, Events::postUpdate];
     }
 }

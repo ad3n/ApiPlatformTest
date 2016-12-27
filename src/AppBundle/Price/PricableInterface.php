@@ -17,6 +17,26 @@ interface PricableInterface extends OwnerableInterface
     /**
      * @return float
      */
+    public function getBasePrice(): float;
+
+    /**
+     * @param float $basePrice
+     */
+    public function setBasePrice(float $basePrice);
+
+    /**
+     * @return int
+     */
+    public function getProfitMargin(): int;
+
+    /**
+     * @param int $profitMargin
+     */
+    public function setProfitMargin(int $profitMargin);
+
+    /**
+     * @return float
+     */
     public function getPrice(): float;
 
     /**

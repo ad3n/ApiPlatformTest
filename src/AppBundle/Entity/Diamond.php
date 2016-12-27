@@ -104,7 +104,7 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      *
      * @ORM\Column(type="float")
      */
-    private $table;
+    private $diamondTable;
 
     /**
      * @var string
@@ -168,6 +168,20 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      *
      * @ORM\Column(type="float")
      */
+    private $basePrice;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $profitMargin;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
     private $price;
 
     /**
@@ -201,6 +215,8 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function __construct()
     {
         $this->isShow = true;
+        $this->price = 0;
+        $this->tax = 0;
     }
 
     /**
@@ -358,17 +374,17 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     /**
      * @return float
      */
-    public function getTable(): float
+    public function getDiamondTable(): float
     {
-        return $this->table;
+        return $this->diamondTable;
     }
 
     /**
-     * @param float $table
+     * @param float $diamondTable
      */
-    public function setTable(float $table)
+    public function setDiamondTable(float $diamondTable)
     {
-        $this->table = $table;
+        $this->diamondTable = $diamondTable;
     }
 
     /**
@@ -484,9 +500,9 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     }
 
     /**
-     * @return CertificateInterface
+     * @return CertificateInterface|null
      */
-    public function getCertificate(): CertificateInterface
+    public function getCertificate()
     {
         return $this->certificate;
     }
@@ -497,6 +513,38 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function setCertificate(CertificateInterface $certificate)
     {
         $this->certificate = $certificate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProfitMargin(): int
+    {
+        return $this->profitMargin;
+    }
+
+    /**
+     * @param int $profitMargin
+     */
+    public function setProfitMargin(int $profitMargin)
+    {
+        $this->profitMargin = $profitMargin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getBasePrice(): float
+    {
+        return $this->basePrice;
+    }
+
+    /**
+     * @param float $basePrice
+     */
+    public function setBasePrice(float $basePrice)
+    {
+        $this->basePrice = $basePrice;
     }
 
     /**
@@ -577,13 +625,5 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function setShow(bool $isShow)
     {
         $this->isShow = $isShow;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOwnerId(): string
-    {
-        return __CLASS__;
     }
 }

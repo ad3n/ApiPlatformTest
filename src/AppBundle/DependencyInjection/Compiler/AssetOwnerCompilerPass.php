@@ -18,10 +18,13 @@ class AssetOwnerCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $assetOwners = [];
+        $indexStart = 1;
 
         $taggedServices = $container->findTaggedServiceIds(self::SERVICETAG);
         foreach ($taggedServices as $id => $tags) {
-            $assetOwners[] = $id;
+            $assetOwners[$indexStart] = $id;
+
+            ++$indexStart;
         }
 
         $container->setParameter(self::SERVICETAG, $assetOwners);

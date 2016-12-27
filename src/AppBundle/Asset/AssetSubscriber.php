@@ -78,6 +78,10 @@ class AssetSubscriber implements EventSubscriber
         /** @var ResourceInterface $entity */
         $entity = $args->getEntity();
 
+        if (!$entity instanceof ResourceInterface) {
+            return;
+        }
+
         $entity->setFile(new File(sprintf('%s/%s', $this->uploader->getUploadDir(), $entity->getFileLocation())));
     }
 
