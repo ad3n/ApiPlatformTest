@@ -23,7 +23,7 @@ class AssetOwnerSubscriber implements EventSubscriber
     private $assetOwnerDataProvider;
 
     /**
-     * @param AssetOwnerFactory $assetOwnerFactory
+     * @param AssetOwnerFactory      $assetOwnerFactory
      * @param AssetOwnerDataProvider $assetOwnerDataProvider
      */
     public function __construct(AssetOwnerFactory $assetOwnerFactory, AssetOwnerDataProvider $assetOwnerDataProvider)

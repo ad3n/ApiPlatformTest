@@ -1,0 +1,62 @@
+services:
+    app.asset.uploader.asset_uploader:
+        class: AppBundle\Asset\AssetUploader
+        arguments:
+            - '%kernel.root_dir%/../web/uploads'
+
+    app.asset.subscriber.asset_subscriber:
+        class: AppBundle\Asset\AssetSubscriber
+        arguments:
+            - '@app.asset.asset_uploader'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    app.asset.data_provider.asset_owner_data_provider:
+        class: AppBundle\Asset\DataProvider\AssetOwnerDataProvider
+        arguments:
+            - '%asset_owner%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }
+
+    app.asset.repository.document_repository:
+        class: AppBundle\Repository\AssetRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'AppBundle\Entity\Document'
+        tags:
+            - { name: 'asset_owner_repository' }
+
+    app.asset.repository.image_repository:
+        class: AppBundle\Repository\AssetRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'AppBundle\Entity\Image'
+        tags:
+            - { name: 'asset_owner_repository' }
+
+    app.asset.repository.video_repository:
+        class: AppBundle\Repository\AssetRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'AppBundle\Entity\Video'
+        tags:
+            - { name: 'asset_owner_repository' }
+
+    app.asset.factory.asset_owner_factory:
+        class: AppBundle\Asset\AssetOwnerFactory
+
+    app.asset.subscriber.asset_owner_subscriber:
+        class: AppBundle\Asset\AssetOwnerSubscriber
+        arguments:
+            - '@app.asset.factory.asset_owner_factory'
+            - '@app.asset.data_provider.asset_owner_data_provider'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    app.asset_owner.diamond:
+        class: AppBundle\Entity\Diamond
+        tags:
+            - { name: 'asset_owner' }

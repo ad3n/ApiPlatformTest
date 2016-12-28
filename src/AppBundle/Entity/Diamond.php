@@ -645,7 +645,7 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      */
     public function isSellable(): bool
     {
-        return $this->isSellable;
+        return ($this->isSellable && $this->isShow && 0 < $this->quantity);
     }
 
     /**

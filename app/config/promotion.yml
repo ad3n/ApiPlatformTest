@@ -3,7 +3,7 @@ services:
         class: AppBundle\Repositroy\PromotionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
-            - ''
+            - 'AppBundle\Entity\Promotion'
         calls:
             - [setContainer, ['@service_container']]
 

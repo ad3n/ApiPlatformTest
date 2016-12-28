@@ -11,28 +11,6 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    app.asset.asset_uploader:
-        class: AppBundle\Asset\AssetUploader
-        arguments:
-            - '%kernel.root_dir%/../web/uploads'
-
-    app.asset.action_logger_subscriber:
-        class: AppBundle\Asset\AssetSubscriber
-        arguments:
-            - '@app.asset.asset_uploader'
-        tags:
-            - { name: 'doctrine.event_subscriber' }
-
-    app.asset.data_provider.asset_owner_data_provider:
-        class: AppBundle\Asset\DataProvider\AssetOwnerDataProvider
-        arguments:
-            - '%asset_owner%'
-        calls:
-            - [setContainer, ['@service_container']]
-        tags:
-            -  { name: 'api_platform.collection_data_provider', priority: 2 }
-            -  { name: 'api_platform.item_data_provider', priority: 2 }
-
     app.price.data_provider.price_calculator_data_provider:
         class: AppBundle\Price\DataProvider\PriceCalculatorDataProvider
         arguments:

@@ -4,29 +4,30 @@ namespace AppBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class AssetOwnerCompilerPass implements CompilerPassInterface
+class AssetOwnerRepositoryCompilerPass implements CompilerPassInterface
 {
-    const SERVICETAG = 'asset_owner';
+    const SERVICETAG = 'asset_owner_repository';
+    const SERVICEID = 'app.asset.factory.asset_owner_factory';
 
     /**
      * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container)
     {
-        $assetOwners = [];
-        $indexStart = 1;
+        if (!$container->hasDefinition(self::SERVICEID)) {
+            return;
+        }
+
+        $definition = $container->getDefinition(self::SERVICEID);
 
         $taggedServices = $container->findTaggedServiceIds(self::SERVICETAG);
         foreach ($taggedServices as $id => $tags) {
-            $assetOwners[$indexStart] = $id;
-
-            ++$indexStart;
+            $definition->addMethodCall('addAssetOwnerRepository', [new Reference($id)]);
         }
-
-        $container->setParameter(self::SERVICETAG, $assetOwners);
     }
 }

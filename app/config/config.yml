@@ -1,5 +1,5 @@
 imports:
-    - { resource: asset_owner.yml }
+    - { resource: asset.yml }
     - { resource: parameters.yml }
     - { resource: price.yml }
     - { resource: promotion.yml}
