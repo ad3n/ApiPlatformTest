@@ -9,7 +9,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class AssetOwner
+class PromotionProvider
 {
     /**
      * @var int
@@ -19,12 +19,7 @@ class AssetOwner
     /**
      * @var string
      */
-    private $owner;
-
-    /**
-     * @var string
-     */
-    private $ownerClass;
+    private $serviceId;
 
     /**
      * @var string
@@ -50,33 +45,17 @@ class AssetOwner
     /**
      * @return string
      */
-    public function getOwner(): string
+    public function getServiceId(): string
     {
-        return $this->owner;
+        return $this->serviceId;
     }
 
     /**
-     * @param string $owner
+     * @param string $serviceId
      */
-    public function setOwner(string $owner)
+    public function setServiceId(string $serviceId)
     {
-        $this->owner = $owner;
-    }
-
-    /**
-     * @return string
-     */
-    public function getOwnerClass(): string
-    {
-        return $this->ownerClass;
-    }
-
-    /**
-     * @param string $ownerClass
-     */
-    public function setOwnerClass(string $ownerClass)
-    {
-        $this->ownerClass = $ownerClass;
+        $this->serviceId = $serviceId;
     }
 
     /**

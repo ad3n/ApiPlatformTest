@@ -7,4 +7,18 @@ namespace AppBundle\Asset;
  */
 interface OwnerableInterface
 {
+    /**
+     * @return int
+     */
+    public function getId(): int;
+
+    /**
+     * @return ResourceInterface[]
+     */
+    public function getFiles(): array;
+
+    /**
+     * @param array $files
+     */
+    public function setFiles(array $files);
 }

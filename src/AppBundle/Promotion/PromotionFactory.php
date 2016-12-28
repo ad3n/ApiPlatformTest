@@ -13,25 +13,11 @@ class PromotionFactory
     private $promotionRepository;
 
     /**
-     * @var array
-     */
-    private $promotions;
-
-    /**
      * @param PromotionRepositoryInterface $promotionRepository
      */
     public function __construct(PromotionRepositoryInterface $promotionRepository)
     {
         $this->promotionRepository = $promotionRepository;
-    }
-
-    /**
-     * @param string             $serviceId
-     * @param PromotionInterface $promotion
-     */
-    public function addPromotion(string $serviceId, PromotionInterface $promotion)
-    {
-        $this->promotions[$serviceId] = $promotion;
     }
 
     /**

@@ -219,6 +219,11 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      */
     private $isSellable;
 
+    /**
+     * @var array
+     */
+    private $files = [];
+
     public function __construct()
     {
         $this->isShow = true;
@@ -649,5 +654,21 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function setSellable(bool $isSellable)
     {
         $this->isSellable = $isSellable;
+    }
+
+    /**
+     * @param array $files
+     */
+    public function setFiles(array $files)
+    {
+        $this->files = $files;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFiles(): array
+    {
+        return $this->files;
     }
 }

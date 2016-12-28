@@ -33,10 +33,20 @@ services:
             -  { name: 'api_platform.collection_data_provider', priority: 2 }
             -  { name: 'api_platform.item_data_provider', priority: 2 }
 
-    app.data_provider.price_calculator_collection_data_provider:
-        class: 'AppBundle\Price\DataProvider\PriceCalculatorDataProvider'
+    app.price.data_provider.price_calculator_data_provider:
+        class: AppBundle\Price\DataProvider\PriceCalculatorDataProvider
         arguments:
             - '%price_calculator%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }
+
+    app.promotion.data_provider.promotion_data_provider:
+        class: AppBundle\Promotion\DataProvider\PromotionDataProvider
+        arguments:
+            - '%promotion%'
         calls:
             - [setContainer, ['@service_container']]
         tags:

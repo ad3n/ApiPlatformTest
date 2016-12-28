@@ -81,7 +81,7 @@ class AssetSubscriber implements EventSubscriber
             return;
         }
 
-        $entity->setFile(new File(sprintf('%s/%s', $this->uploader->getUploadDir(), $entity->getFileLocation())));
+        $entity->setFile(new File(sprintf('%s/%s', $this->uploader->getUploadDir(), $entity->getFileName())));
     }
 
     /**

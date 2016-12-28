@@ -58,7 +58,7 @@ class Video implements ResourceInterface
      *
      * @ORM\Column(type="string")
      */
-    private $fileLocation;
+    private $fileName;
 
     /**
      * @var bool
@@ -141,9 +141,9 @@ class Video implements ResourceInterface
     /**
      * @return string
      */
-    public function getFileLocation(): string
+    public function getFileName(): string
     {
-        return $this->fileLocation;
+        return $this->fileName;
     }
 
     /**
@@ -160,7 +160,7 @@ class Video implements ResourceInterface
     public function setFile(File $file)
     {
         $this->file = $file;
-        $this->fileLocation = $file->getFilename();
+        $this->fileName = $file->getFilename();
     }
 
     /**

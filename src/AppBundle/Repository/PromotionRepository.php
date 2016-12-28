@@ -1,7 +1,10 @@
 <?php
 
-namespace AppBundle\Promotion;
+namespace AppBundle\Repositroy;
 
+use AppBundle\Promotion\PromotionDataInterface;
+use AppBundle\Promotion\PromotionInterface;
+use AppBundle\Promotion\PromotionRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -47,11 +50,11 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
     }
 
     /**
-     * @param $voucherCode
+     * @param string $voucherCode
      *
      * @return PromotionInterface|null
      */
-    public function findByCode($voucherCode)
+    public function findByCode(string $voucherCode)
     {
         /** @var PromotionDataInterface $promotionData */
         $promotionData = $this->repository->findOneBy(['voucherCode' => $voucherCode]);

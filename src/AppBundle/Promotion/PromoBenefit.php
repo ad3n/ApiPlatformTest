@@ -20,6 +20,11 @@ class PromoBenefit
     private $description;
 
     /**
+     * @var array
+     */
+    private $items;
+
+    /**
      * @var float
      */
     private $discountValue;
@@ -79,6 +84,30 @@ class PromoBenefit
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param array $items
+     */
+    public function setItems(array $items)
+    {
+        $this->items = $items;
+    }
+
+    /**
+     * @param ProductInterface $product
+     */
+    public function addItem(ProductInterface $product)
+    {
+        $this->items[] = $product;
     }
 
     /**

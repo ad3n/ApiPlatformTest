@@ -43,7 +43,7 @@ interface ResourceInterface
     /**
      * @return string
      */
-    public function getFileLocation(): string;
+    public function getFileName(): string;
 
     /**
      * @param File $fileLocation

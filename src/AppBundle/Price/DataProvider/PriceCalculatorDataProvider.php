@@ -5,8 +5,8 @@ namespace AppBundle\Price\DataProvider;
 use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
-use AppBundle\Asset\OwnerableInterface;
 use AppBundle\Entity\PriceCalculator;
+use AppBundle\Util\CamelCaseToWord;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -55,7 +55,7 @@ final class PriceCalculatorDataProvider implements ContainerAwareInterface, Coll
             throw new ResourceClassNotSupportedException();
         }
 
-        return $this->getPriceCalculators();
+        return $this->getData();
     }
 
     /**
@@ -74,11 +74,11 @@ final class PriceCalculatorDataProvider implements ContainerAwareInterface, Coll
             throw new ResourceClassNotSupportedException();
         }
 
-        $priceClaculators = $this->getPriceCalculators();
-        /** @var PriceCalculator $priceClaculator */
-        foreach ($priceClaculators as $priceClaculator) {
-            if ((int) $id === (int) $priceClaculator->getId()) {
-                return $priceClaculator;
+        $priceCalculators = $this->getData();
+        /** @var PriceCalculator $priceCalculator */
+        foreach ($priceCalculators as $priceCalculator) {
+            if ((int) $id === (int) $priceCalculator->getId()) {
+                return $priceCalculator;
             }
         }
     }
@@ -86,19 +86,16 @@ final class PriceCalculatorDataProvider implements ContainerAwareInterface, Coll
     /**
      * @return array
      */
-    private function getPriceCalculators(): array
+    private function getData(): array
     {
         $priceCalculators = [];
         foreach ($this->priceCalculators as $id => $priceCalculator) {
-            /** @var OwnerableInterface $object */
             $reflection = new \ReflectionObject($this->container->get($priceCalculator));
-
-            preg_match_all('/((?:^|[A-Z])[a-z]+)/', $reflection->getShortName(), $matches);
 
             $calculator = new PriceCalculator();
             $calculator->setId($id);
             $calculator->setServiceId($priceCalculator);
-            $calculator->setName(implode(' ', $matches[1]));
+            $calculator->setName(CamelCaseToWord::convert($reflection->getShortName()));
 
             $priceCalculators[] = $calculator;
         }

@@ -8,11 +8,11 @@ namespace AppBundle\Promotion;
 interface PromotionRepositoryInterface
 {
     /**
-     * @param $voucherCode
+     * @param string $voucherCode
      *
      * @return PromotionInterface|null
      */
-    public function findByCode($voucherCode);
+    public function findByCode(string $voucherCode);
 
     /**
      * @return string

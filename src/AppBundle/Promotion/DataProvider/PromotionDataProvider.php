@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Asset\DataProvider;
+namespace AppBundle\Promotion\DataProvider;
 
 use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
-use AppBundle\Entity\AssetOwner;
+use AppBundle\Entity\PromotionProvider;
 use AppBundle\Util\CamelCaseToWord;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,12 +13,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataProviderInterface, ItemDataProviderInterface
+final class PromotionDataProvider implements ContainerAwareInterface, CollectionDataProviderInterface, ItemDataProviderInterface
 {
     /**
      * @var array
      */
-    private $owners;
+    private $promotionProviders;
 
     /**
      * @var ContainerInterface
@@ -26,11 +26,11 @@ class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataP
     private $container;
 
     /**
-     * @param array $owners
+     * @param array $promotionProviders
      */
-    public function __construct(array $owners)
+    public function __construct(array $promotionProviders)
     {
-        $this->owners = $owners;
+        $this->promotionProviders = $promotionProviders;
     }
 
     /**
@@ -51,7 +51,7 @@ class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataP
      */
     public function getCollection(string $resourceClass, string $operationName = null): array
     {
-        if (AssetOwner::class !== $resourceClass) {
+        if (PromotionProvider::class !== $resourceClass) {
             throw new ResourceClassNotSupportedException();
         }
 
@@ -70,33 +70,15 @@ class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataP
      */
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
     {
-        if (AssetOwner::class !== $resourceClass) {
+        if (PromotionProvider::class !== $resourceClass) {
             throw new ResourceClassNotSupportedException();
         }
 
-        $owners = $this->getData();
-
-        /** @var AssetOwner $owner */
-        foreach ($owners as $owner) {
-            if ((int) $id === (int) $owner->getId()) {
-                return $owner;
-            }
-        }
-    }
-
-    /**
-     * @param string $ownerClass
-     *
-     * @return AssetOwner
-     */
-    public function getOwnerByClass(string $ownerClass)
-    {
-        $owners = $this->getData();
-
-        /** @var AssetOwner $owner */
-        foreach ($owners as $owner) {
-            if ($ownerClass === $owner->getOwnerClass()) {
-                return $owner;
+        $promotionProviders = $this->getData();
+        foreach ($promotionProviders as $promotionProvider) {
+            /** @var PromotionProvider $promotionProvider */
+            if ((int) $id === (int) $promotionProvider->getId()) {
+                return $promotionProvider;
             }
         }
     }
@@ -106,19 +88,18 @@ class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataP
      */
     private function getData(): array
     {
-        $owners = [];
-        foreach ($this->owners as $id => $owner) {
-            $reflection = new \ReflectionObject($this->container->get($owner));
+        $promotionProviders = [];
+        foreach ($this->promotionProviders as $id => $promotionProvider) {
+            $reflection = new \ReflectionObject($this->container->get($promotionProvider));
 
-            $assetOwner = new AssetOwner();
-            $assetOwner->setId($id);
-            $assetOwner->setOwner($owner);
-            $assetOwner->setOwnerClass($reflection->getName());
-            $assetOwner->setName(CamelCaseToWord::convert($reflection->getShortName()));
+            $calculator = new PromotionProvider();
+            $calculator->setId($id);
+            $calculator->setServiceId($promotionProvider);
+            $calculator->setName(CamelCaseToWord::convert($reflection->getShortName()));
 
-            $owners[] = $assetOwner;
+            $promotionProviders[] = $calculator;
         }
 
-        return $owners;
+        return $promotionProviders;
     }
 }
