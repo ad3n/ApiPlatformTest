@@ -212,9 +212,17 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      */
     private $isShow;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isSellable;
+
     public function __construct()
     {
         $this->isShow = true;
+        $this->isSellable = true;
         $this->price = 0;
         $this->tax = 0;
     }
@@ -625,5 +633,21 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function setShow(bool $isShow)
     {
         $this->isShow = $isShow;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSellable(): bool
+    {
+        return $this->isSellable;
+    }
+
+    /**
+     * @param bool $isSellable
+     */
+    public function setSellable(bool $isSellable)
+    {
+        $this->isSellable = $isSellable;
     }
 }

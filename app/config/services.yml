@@ -23,11 +23,6 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    app.owner.diamond:
-        class: AppBundle\Entity\Diamond
-        tags:
-            - { name: 'asset_owner' }
-
     app.asset.data_provider.asset_owner_data_provider:
         class: AppBundle\Asset\DataProvider\AssetOwnerDataProvider
         arguments:

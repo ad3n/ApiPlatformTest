@@ -4,7 +4,6 @@ namespace AppBundle\Price;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**

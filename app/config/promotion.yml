@@ -1,0 +1,8 @@
+services:
+    app.promotion.repository:
+        class: AppBundle\Promotion\PromotionRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - ''
+        calls:
+            - [setContainer, ['@service_container']]

@@ -81,4 +81,9 @@ interface ProductInterface
      * @return bool
      */
     public function isShow(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isSellable(): bool;
 }

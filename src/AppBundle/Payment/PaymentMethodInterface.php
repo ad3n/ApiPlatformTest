@@ -7,5 +7,4 @@ namespace AppBundle\Payment;
  */
 interface PaymentMethodInterface
 {
-
 }

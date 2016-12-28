@@ -59,10 +59,10 @@ final class PriceCalculatorDataProvider implements ContainerAwareInterface, Coll
     }
 
     /**
-     * @param string $resourceClass
+     * @param string      $resourceClass
      * @param string|null $operationName
-     * @param int|string $id
-     * @param array $context
+     * @param int|string  $id
+     * @param array       $context
      *
      * @throws ResourceClassNotSupportedException
      *

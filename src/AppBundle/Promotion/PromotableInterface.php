@@ -12,5 +12,25 @@ interface PromotableInterface
      */
     public function addBenefit(PromoBenefit $promoBenefit);
 
-    public function compileBenefit();
+    /**
+     * @return string
+     */
+    public function getVoucherCode(): string;
+
+    /**
+     * @param string $voucherCode
+     */
+    public function setVoucherCode(string $voucherCode);
+
+    /**
+     * @return string
+     */
+    public function serializeBenefit(): string;
+
+    /**
+     * @param string $string
+     *
+     * @return array
+     */
+    public function unserializeBenefit(string $string = null): array;
 }
