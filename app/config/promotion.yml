@@ -14,7 +14,7 @@ services:
     app.promotion.promotion_factory:
         class: AppBundle\Promotion\PromotionFactory
         arguments:
-            - '@app.promotion.repository'
+            - '@app.promotion.promotion_repository'
 
     app.promotion.promotion_owner_subscriber:
         class: AppBundle\Promotion\PromotionOwnerSubscriber
@@ -32,5 +32,7 @@ services:
 
     app.promotion.twenty_percent_discount:
         class: AppBundle\Promotion\TwentyPercentDiscountPromotion
+        arguments:
+            - 'AppBundle\Entity\PromotionBenefit'
         tags:
             - { name: 'promotion' }

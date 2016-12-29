@@ -8,6 +8,19 @@ namespace AppBundle\Promotion;
 class TwentyPercentDiscountPromotion implements PromotionInterface
 {
     /**
+     * @var string
+     */
+    private $promotionBenefitClass;
+
+    /**
+     * @param string $promotionBenefitClass
+     */
+    public function __construct(string $promotionBenefitClass)
+    {
+        $this->promotionBenefitClass = $promotionBenefitClass;
+    }
+
+    /**
      * @param PromotableInterface $promotable
      */
     public function calculate(PromotableInterface $promotable)
@@ -15,12 +28,19 @@ class TwentyPercentDiscountPromotion implements PromotionInterface
         $totalAmount = $promotable->getTotalAmount();
         $promotable->setTotalAmount($totalAmount - ($totalAmount * 0.2));
 
-        $promoBenefit = new PromotionBenefit();
+        $promoBenefit = $this->createPromotionBenefit();
         $promoBenefit->setName('Twenty percent discount per transaction');
         $promoBenefit->setDescription('Twenty percent discount applied per transaction not per product');
         $promoBenefit->setDiscountPercentage(20.0);
 
         $promotable->addBenefit($promoBenefit);
-        $promotable->serializeBenefit();
+    }
+
+    /**
+     * @return PromotionBenefitInterface
+     */
+    public function createPromotionBenefit()
+    {
+        return new $this->promotionBenefitClass();
     }
 }

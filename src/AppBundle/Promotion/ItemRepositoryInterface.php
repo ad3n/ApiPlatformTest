@@ -16,6 +16,7 @@ interface ItemRepositoryInterface
 
     /**
      * @param int $id
+     *
      * @return ItemInterface|null
      */
     public function find(int $id);

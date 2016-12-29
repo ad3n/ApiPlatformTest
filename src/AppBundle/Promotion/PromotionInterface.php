@@ -8,6 +8,11 @@ namespace AppBundle\Promotion;
 interface PromotionInterface
 {
     /**
+     * @return PromotionBenefitInterface
+     */
+    public function createPromotionBenefit();
+
+    /**
      * @param PromotableInterface $promotable
      */
     public function calculate(PromotableInterface $promotable);

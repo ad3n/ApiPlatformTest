@@ -20,9 +20,19 @@ interface PromotionBenefitInterface
     public function getName(): string;
 
     /**
+     * @param string $name
+     */
+    public function setName(string $name);
+
+    /**
      * @return string
      */
     public function getDescription(): string;
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description);
 
     /**
      * @return ItemInterface[]
@@ -47,9 +57,19 @@ interface PromotionBenefitInterface
     public function getDiscountValue(): float;
 
     /**
+     * @param float $discountValue
+     */
+    public function setDiscountValue(float $discountValue);
+
+    /**
      * @return float
      */
     public function getDiscountPercentage(): float;
+
+    /**
+     * @param float $discountPercentage
+     */
+    public function setDiscountPercentage(float $discountPercentage);
 
     /**
      * @return float
@@ -57,9 +77,19 @@ interface PromotionBenefitInterface
     public function getCashback(): float;
 
     /**
+     * @param float $cashback
+     */
+    public function setCashback(float $cashback);
+
+    /**
      * @return ProductInterface
      */
     public function getProduct(): ProductInterface;
+
+    /**
+     * @param ProductInterface $product
+     */
+    public function setProduct(ProductInterface $product);
 
     /**
      * @return string
@@ -67,9 +97,19 @@ interface PromotionBenefitInterface
     public function getVoucher(): string;
 
     /**
+     * @param string $voucher
+     */
+    public function setVoucher(string $voucher);
+
+    /**
      * @return int
      */
     public function getPoint(): int;
+
+    /**
+     * @param int $point
+     */
+    public function setPoint(int $point);
 
     public function serializeItem();
 
