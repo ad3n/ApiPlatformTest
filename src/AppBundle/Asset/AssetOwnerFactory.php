@@ -2,6 +2,8 @@
 
 namespace AppBundle\Asset;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -13,11 +15,24 @@ class AssetOwnerFactory
     private $assetOwnerRepositories;
 
     /**
+     * @var ObjectManager
+     */
+    private $objectManager;
+
+    /**
      * @param AssetRepositoryInterface $assetRepository
      */
     public function addAssetOwnerRepository(AssetRepositoryInterface $assetRepository)
     {
         $this->assetOwnerRepositories[] = $assetRepository;
+    }
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function setManager(ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
     }
 
     /**
@@ -31,6 +46,7 @@ class AssetOwnerFactory
         $assets = [];
         /** @var AssetRepositoryInterface $assetOwnerRepository */
         foreach ($this->assetOwnerRepositories as $assetOwnerRepository) {
+            $assetOwnerRepository->setManager($this->objectManager);
             array_merge($assets, $assetOwnerRepository->findByOwner($owner, $sourceId));
         }
 
@@ -49,6 +65,7 @@ class AssetOwnerFactory
         $assets = [];
         /** @var AssetRepositoryInterface $assetOwnerRepository */
         foreach ($this->assetOwnerRepositories as $assetOwnerRepository) {
+            $assetOwnerRepository->setManager($this->objectManager);
             array_merge($assets, $assetOwnerRepository->findByOwnerAndGroup($owner, $sourceId, $group));
         }
 

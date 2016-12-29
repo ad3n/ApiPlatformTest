@@ -2,7 +2,7 @@
 
 namespace AppBundle\Repositroy;
 
-use AppBundle\Promotion\PromotionDataInterface;
+use AppBundle\Promotion\OwnerableInterface;
 use AppBundle\Promotion\PromotionInterface;
 use AppBundle\Promotion\PromotionRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -54,9 +54,9 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
      *
      * @return PromotionInterface|null
      */
-    public function findByCode(string $voucherCode)
+    public function findByCode(string $voucherCode): PromotionInterface
     {
-        /** @var PromotionDataInterface $promotionData */
+        /** @var OwnerableInterface $promotionData */
         $promotionData = $this->repository->findOneBy(['voucherCode' => $voucherCode]);
         if ($promotionData->isValid()) {
             /** @var PromotionInterface $promotion */

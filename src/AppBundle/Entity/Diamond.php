@@ -5,11 +5,13 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\OwnerableInterface;
-use AppBundle\Model\CertificateInterface;
-use AppBundle\Model\DiamondInterface;
-use AppBundle\Model\ProductInterface;
+use AppBundle\Asset\ResourceInterface;
+use AppBundle\Certificate\CertificateInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
+use AppBundle\Product\DiamondInterface;
+use AppBundle\Product\ProductInterface;
+use AppBundle\ShoppingCart\ItemInterface as ShoppingCartItemInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -21,7 +23,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface, PricableInterface
+class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface, PricableInterface, ShoppingCartItemInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -220,9 +222,9 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     private $isSellable;
 
     /**
-     * @var array
+     * @var ResourceInterface[]
      */
-    private $files = [];
+    private $files;
 
     public function __construct()
     {
@@ -230,6 +232,7 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
         $this->isSellable = true;
         $this->price = 0;
         $this->tax = 0;
+        $this->files = [];
     }
 
     /**
@@ -645,7 +648,7 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      */
     public function isSellable(): bool
     {
-        return ($this->isSellable && $this->isShow && 0 < $this->quantity);
+        return $this->isSellable && $this->isShow && 0 < $this->quantity;
     }
 
     /**

@@ -2,8 +2,6 @@
 
 namespace AppBundle\Sibling;
 
-use AppBundle\Model\SiblingInterface;
-
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */

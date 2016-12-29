@@ -2,7 +2,7 @@
 
 namespace AppBundle\Promotion;
 
-use AppBundle\Model\ProductInterface;
+use AppBundle\Product\ProductInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -87,7 +87,7 @@ class PromoBenefit
     }
 
     /**
-     * @return array
+     * @return ItemInterface[]
      */
     public function getItems(): array
     {
@@ -95,19 +95,23 @@ class PromoBenefit
     }
 
     /**
-     * @param array $items
+     * @param ItemInterface $item
      */
-    public function setItems(array $items)
+    public function addItem(ItemInterface $item)
     {
-        $this->items = $items;
+        $this->items[$item->getId()] = $item;
     }
 
     /**
-     * @param ProductInterface $product
+     * @param ItemInterface $item
+     *
+     * @return ItemInterface[]
      */
-    public function addItem(ProductInterface $product)
+    public function removeItem(ItemInterface $item): array
     {
-        $this->items[] = $product;
+        unset($this->items[$item->getId()]);
+
+        return $this->items;
     }
 
     /**

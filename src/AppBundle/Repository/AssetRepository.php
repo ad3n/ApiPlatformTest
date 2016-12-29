@@ -17,12 +17,24 @@ class AssetRepository implements AssetRepositoryInterface
     private $repository;
 
     /**
-     * @param ObjectManager $objectManager
+     * @var string
+     */
+    private $dataClass;
+
+    /**
      * @param string $dataClass
      */
-    public function __construct(ObjectManager $objectManager, string $dataClass)
+    public function __construct(string $dataClass)
     {
-        $metadata = $objectManager->getClassMetadata($dataClass);
+        $this->dataClass = $dataClass;
+    }
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function setManager(ObjectManager $objectManager)
+    {
+        $metadata = $objectManager->getClassMetadata($this->dataClass);
         $this->repository = $objectManager->getRepository($metadata->getName());
     }
 

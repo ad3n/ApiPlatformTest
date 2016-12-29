@@ -5,7 +5,7 @@ namespace AppBundle\Promotion;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface PromotionDataInterface
+interface OwnerableInterface
 {
     /**
      * @return int
@@ -41,4 +41,14 @@ interface PromotionDataInterface
      * @return bool
      */
     public function isValid();
+
+    /**
+     * @param PromoBenefit[] $benefits
+     */
+    public function setBenefits(array $benefits);
+
+    /**
+     * @return PromoBenefit[]
+     */
+    public function getBenefits(): array;
 }

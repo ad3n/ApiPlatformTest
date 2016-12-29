@@ -7,7 +7,7 @@ services:
     app.asset.subscriber.asset_subscriber:
         class: AppBundle\Asset\AssetSubscriber
         arguments:
-            - '@app.asset.asset_uploader'
+            - '@app.asset.uploader.asset_uploader'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
@@ -24,7 +24,6 @@ services:
     app.asset.repository.document_repository:
         class: AppBundle\Repository\AssetRepository
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\Document'
         tags:
             - { name: 'asset_owner_repository' }
@@ -32,7 +31,6 @@ services:
     app.asset.repository.image_repository:
         class: AppBundle\Repository\AssetRepository
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\Image'
         tags:
             - { name: 'asset_owner_repository' }
@@ -40,7 +38,6 @@ services:
     app.asset.repository.video_repository:
         class: AppBundle\Repository\AssetRepository
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\Video'
         tags:
             - { name: 'asset_owner_repository' }

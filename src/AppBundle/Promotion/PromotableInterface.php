@@ -2,8 +2,6 @@
 
 namespace AppBundle\Promotion;
 
-use AppBundle\Model\ProductInterface;
-
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -32,7 +30,7 @@ interface PromotableInterface
     /**
      * @param string $string
      *
-     * @return array
+     * @return PromoBenefit[]
      */
     public function unserializeBenefit(string $string = null): array;
 
@@ -45,9 +43,4 @@ interface PromotableInterface
      * @param float $totalAmount
      */
     public function setTotalAmount(float $totalAmount);
-
-    /**
-     * @return ProductInterface[]
-     */
-    public function getItems(): array;
 }

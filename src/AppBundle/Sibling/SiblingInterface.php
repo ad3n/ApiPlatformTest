@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Model;
+namespace AppBundle\Sibling;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>

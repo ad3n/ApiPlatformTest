@@ -43,6 +43,7 @@ class AssetOwnerSubscriber implements EventSubscriber
         }
 
         $owner = $this->assetOwnerDataProvider->getOwnerByClass(get_class($entity));
+        $this->assetOwnerFactory->setManager($args->getObjectManager());
         $entity->setFiles($this->assetOwnerFactory->findByOwner($owner, $entity->getId()));
     }
 

@@ -4,7 +4,8 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
-use AppBundle\Promotion\PromotionDataInterface;
+use AppBundle\Promotion\PromoBenefit;
+use AppBundle\Promotion\OwnerableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -16,7 +17,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Promotion implements PromotionDataInterface
+class Promotion implements OwnerableInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -57,6 +58,16 @@ class Promotion implements PromotionDataInterface
      * @ORM\Column(type="string")
      */
     private $serviceId;
+
+    /**
+     * @var PromoBenefit[]
+     */
+    private $benefits;
+
+    public function __construct()
+    {
+        $this->benefits = [];
+    }
 
     /**
      * @return int
@@ -142,5 +153,21 @@ class Promotion implements PromotionDataInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param PromoBenefit[] $benefits
+     */
+    public function setBenefits(array $benefits)
+    {
+        $this->benefits = $benefits;
+    }
+
+    /**
+     * @return PromoBenefit[]
+     */
+    public function getBenefits(): array
+    {
+        return $this->benefits;
     }
 }
