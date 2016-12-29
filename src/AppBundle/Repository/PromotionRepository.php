@@ -1,8 +1,9 @@
 <?php
 
-namespace AppBundle\Repositroy;
+namespace AppBundle\Repository;
 
 use AppBundle\Promotion\OwnerableInterface;
+use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionInterface;
 use AppBundle\Promotion\PromotionRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -31,14 +32,20 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
     private $container;
 
     /**
-     * @param ObjectManager $objectManager
-     * @param string        $dataClass
+     * @param string $dataClass
      */
-    public function __construct(ObjectManager $objectManager, string $dataClass)
+    public function __construct(string $dataClass)
     {
-        $metadata = $objectManager->getClassMetadata($dataClass);
-        $this->dataClass = $metadata->getName();
-        $this->repository = $objectManager->getRepository($this->dataClass);
+        $this->dataClass = $dataClass;
+    }
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function setManager(ObjectManager $objectManager)
+    {
+        $metadata = $objectManager->getClassMetadata($this->dataClass);
+        $this->repository = $objectManager->getRepository($metadata->getName());
     }
 
     /**
@@ -66,6 +73,16 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
         }
 
         return null;
+    }
+
+    /**
+     * @param OwnerableInterface $owner
+     *
+     * @return PromotableInterface[]
+     */
+    public function findByOwner(OwnerableInterface $owner)
+    {
+        return $this->repository->findBy(['owner' => $owner]);
     }
 
     /**

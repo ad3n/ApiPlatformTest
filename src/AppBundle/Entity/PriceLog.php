@@ -113,7 +113,7 @@ class PriceLog implements PriceLogInterface
      */
     public function getSource(): PricableInterface
     {
-        $this->unserialize();
+        $this->unserialize($this->stringify);
 
         return $this->source;
     }
@@ -131,7 +131,7 @@ class PriceLog implements PriceLogInterface
      *
      * @return PriceLogInterface
      */
-    public function unserialize(string $string = null): PriceLogInterface
+    public function unserialize(string $string): PriceLogInterface
     {
         $split = $string ? explode('#', trim($string)) : explode('#', trim($this->source));
 

@@ -42,5 +42,5 @@ interface PriceLogInterface
      *
      * @return PriceLogInterface
      */
-    public function unserialize(string $string = null): PriceLogInterface;
+    public function unserialize(string $string): PriceLogInterface;
 }

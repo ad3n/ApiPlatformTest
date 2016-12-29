@@ -648,7 +648,7 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      */
     public function isSellable(): bool
     {
-        return $this->isSellable && $this->isShow && 0 < $this->quantity;
+        return $this->isSellable && $this->isShow && (0 < $this->quantity);
     }
 
     /**
@@ -660,15 +660,25 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     }
 
     /**
-     * @param array $files
+     * @param ResourceInterface $resource
      */
-    public function setFiles(array $files)
+    public function addFile(ResourceInterface $resource)
     {
-        $this->files = $files;
+        $this->files[] = $resource;
     }
 
     /**
-     * @return array
+     * @param ResourceInterface[] $files
+     */
+    public function setFiles(array $files)
+    {
+        foreach ($files as $file) {
+            $this->addFile($file);
+        }
+    }
+
+    /**
+     * @return ResourceInterface[]
      */
     public function getFiles(): array
     {

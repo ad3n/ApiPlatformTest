@@ -2,12 +2,10 @@
 
 namespace AppBundle\Price;
 
-use AppBundle\Asset\OwnerableInterface;
-
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface PricableInterface extends OwnerableInterface
+interface PricableInterface
 {
     /**
      * @return int

@@ -106,30 +106,4 @@ class Certificate implements CertificateInterface
     {
         return $this->provider;
     }
-
-    /**
-     * @return string
-     */
-    public function serialize(): string
-    {
-        return sprintf('%s#%s#%s', $this->provider, $this->certNo, $this->certLocation);
-    }
-
-    /**
-     * @param string $string
-     *
-     * @return CertificateInterface
-     */
-    public function unserialize(string $string): CertificateInterface
-    {
-        $split = explode('#', trim($string));
-
-        if (3 === count($split)) {
-            $this->setProvider($split[0]);
-            $this->setCertNo($split[1]);
-            $this->setCertLocation($split[2]);
-        }
-
-        return $this;
-    }
 }

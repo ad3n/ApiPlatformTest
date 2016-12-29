@@ -13,6 +13,11 @@ interface OwnerableInterface
     public function getId(): int;
 
     /**
+     * @param ResourceInterface $resource
+     */
+    public function addFile(ResourceInterface $resource);
+
+    /**
      * @return ResourceInterface[]
      */
     public function getFiles(): array;

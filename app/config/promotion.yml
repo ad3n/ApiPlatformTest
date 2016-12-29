@@ -1,16 +1,34 @@
 services:
-    app.promotion.repository:
-        class: AppBundle\Repositroy\PromotionRepository
+    app.promotion.promotion_repository:
+        class: AppBundle\Repository\PromotionRepository
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\Promotion'
         calls:
             - [setContainer, ['@service_container']]
+
+    app.promotion.promotion_item_repository:
+        class: AppBundle\Repository\PromotionItemRepository
+        arguments:
+            - 'AppBundle\Entity\PromotionItem'
 
     app.promotion.promotion_factory:
         class: AppBundle\Promotion\PromotionFactory
         arguments:
             - '@app.promotion.repository'
+
+    app.promotion.promotion_owner_subscriber:
+        class: AppBundle\Promotion\PromotionOwnerSubscriber
+        arguments:
+            - '@app.promotion.promotion_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    app.promotion.promotion_benefit_subscriber:
+        class: AppBundle\Promotion\PromotionBenefitSubscriber
+        arguments:
+            - '@app.promotion.promotion_item_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
 
     app.promotion.twenty_percent_discount:
         class: AppBundle\Promotion\TwentyPercentDiscountPromotion

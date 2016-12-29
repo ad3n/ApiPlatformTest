@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use AppBundle\Customer\CustomerInterface;
 use AppBundle\ShoppingCart\ItemInterface;
 use AppBundle\ShoppingCart\OwnerableInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
@@ -39,7 +38,7 @@ class ShoppingCart implements ShoppingCartInterface
     private $uniqueId;
 
     /**
-     * @var CustomerInterface
+     * @var OwnerableInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")

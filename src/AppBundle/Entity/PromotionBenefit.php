@@ -1,41 +1,77 @@
 <?php
 
-namespace AppBundle\Promotion;
+namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
+use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Product\ProductInterface;
+use AppBundle\Promotion\ItemInterface;
+use AppBundle\Promotion\PromotionBenefitInterface;
+use AppBundle\Promotion\ItemRepositoryInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
+ * @ORM\Entity()
+ * @ORM\Table(name="promotion_benefits")
+ *
+ * @ApiResource()
+ *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class PromoBenefit
+class PromotionBenefit implements PromotionBenefitInterface
 {
+    use Timestampable;
+    use ActionLoggable;
+
+    /**
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $name;
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $description;
 
     /**
-     * @var array
+     * @var string
+     *
+     * @ORM\Column(type="string")
      */
-    private $items;
+    private $benefitItems;
 
     /**
      * @var float
+     *
+     * @ORM\Column(type="float")
      */
     private $discountValue;
 
     /**
      * @var float
+     *
+     * @ORM\Column(type="float")
      */
     private $discountPercentage;
 
     /**
      * @var float
+     *
+     * @ORM\Column(type="float")
      */
     private $cashback;
 
@@ -46,13 +82,30 @@ class PromoBenefit
 
     /**
      * @var string
+     *
+     * @ORM\Column(type="string")
      */
     private $voucher;
 
     /**
      * @var int
+     *
+     * @ORM\Column(type="integer")
      */
     private $point;
+
+    /**
+     * @var ItemInterface[]
+     */
+    private $items;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -208,5 +261,28 @@ class PromoBenefit
     public function setPoint(int $point)
     {
         $this->point = $point;
+    }
+
+    public function serializeItem()
+    {
+        $benefitItems = [];
+        foreach ($this->items as $item) {
+            $benefitItems[] = $item->getId();
+        }
+
+        $this->benefitItems = serialize($benefitItems);
+    }
+
+    /**
+     * @param ItemRepositoryInterface $itemRepository
+     */
+    public function unserializeItem(ItemRepositoryInterface $itemRepository)
+    {
+        $benefitItems = unserialize($this->benefitItems);
+        foreach ($benefitItems as $itemId) {
+            if ($item = $itemRepository->find($itemId)) {
+                $this->addItem($item);
+            }
+        }
     }
 }

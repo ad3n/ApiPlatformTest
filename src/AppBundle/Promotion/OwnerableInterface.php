@@ -43,12 +43,17 @@ interface OwnerableInterface
     public function isValid();
 
     /**
-     * @param PromoBenefit[] $benefits
+     * @param PromotableInterface $promotable
      */
-    public function setBenefits(array $benefits);
+    public function addPromotion(PromotableInterface $promotable);
 
     /**
-     * @return PromoBenefit[]
+     * @param PromotableInterface[] $promotions
      */
-    public function getBenefits(): array;
+    public function setPromotions(array $promotions);
+
+    /**
+     * @return PromotableInterface[]
+     */
+    public function getPromotions(): array;
 }

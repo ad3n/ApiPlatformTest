@@ -8,9 +8,19 @@ namespace AppBundle\Promotion;
 interface PromotableInterface
 {
     /**
-     * @param PromoBenefit $promoBenefit
+     * @param PromotionBenefitInterface $promoBenefit
      */
-    public function addBenefit(PromoBenefit $promoBenefit);
+    public function addBenefit(PromotionBenefitInterface $promoBenefit);
+
+    /**
+     * @param PromotionBenefitInterface[] $benefits
+     */
+    public function setBenefits(array $benefits);
+
+    /**
+     * @return PromotionBenefitInterface[]
+     */
+    public function getBenefits(): array;
 
     /**
      * @return string
@@ -21,18 +31,6 @@ interface PromotableInterface
      * @param string $voucherCode
      */
     public function setVoucherCode(string $voucherCode);
-
-    /**
-     * @return string
-     */
-    public function serializeBenefit(): string;
-
-    /**
-     * @param string $string
-     *
-     * @return PromoBenefit[]
-     */
-    public function unserializeBenefit(string $string = null): array;
 
     /**
      * @return float

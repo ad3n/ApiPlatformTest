@@ -4,8 +4,8 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
-use AppBundle\Promotion\PromoBenefit;
 use AppBundle\Promotion\OwnerableInterface;
+use AppBundle\Promotion\PromotableInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -60,13 +60,13 @@ class Promotion implements OwnerableInterface
     private $serviceId;
 
     /**
-     * @var PromoBenefit[]
+     * @var PromotableInterface[]
      */
-    private $benefits;
+    private $promotions;
 
     public function __construct()
     {
-        $this->benefits = [];
+        $this->promotions = [];
     }
 
     /**
@@ -156,18 +156,28 @@ class Promotion implements OwnerableInterface
     }
 
     /**
-     * @param PromoBenefit[] $benefits
+     * @param PromotableInterface $promotable
      */
-    public function setBenefits(array $benefits)
+    public function addPromotion(PromotableInterface $promotable)
     {
-        $this->benefits = $benefits;
+        $this->promotions[] = $promotable;
     }
 
     /**
-     * @return PromoBenefit[]
+     * @return PromotableInterface[]
      */
-    public function getBenefits(): array
+    public function getPromotions(): array
     {
-        return $this->benefits;
+        return $this->promotions;
+    }
+
+    /**
+     * @param PromotableInterface[] $promotions
+     */
+    public function setPromotions(array $promotions)
+    {
+        foreach ($promotions as $promotion) {
+            $this->addPromotion($promotion);
+        }
     }
 }
