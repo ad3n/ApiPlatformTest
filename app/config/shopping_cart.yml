@@ -1,0 +1,6 @@
+services:
+    app.shopping_cart.shopping_cart_repository:
+        class: AppBundle\Repository\ShoppingCartRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - 'AppBundle\Entity\ShoppingCart'
