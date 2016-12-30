@@ -6,7 +6,9 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Customer\CustomerInterface;
 use AppBundle\ShoppingCart\OwnerableInterface as ShoppingCartOwnerInterface;
+use AppBundle\Transaction\OwnerableInterface as TransactionOwnerInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
+use AppBundle\Transaction\TransactionInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -18,7 +20,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Customer implements CustomerInterface, ShoppingCartOwnerInterface
+class Customer implements CustomerInterface, ShoppingCartOwnerInterface, TransactionOwnerInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -120,6 +122,11 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface
      * @var ShoppingCartInterface
      */
     private $shoppingCart;
+
+    /**
+     * @var TransactionInterface[]
+     */
+    private $transactions;
 
     /**
      * @return int
@@ -343,5 +350,47 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface
     public function getShoppingCart(): ShoppingCartInterface
     {
         return $this->shoppingCart;
+    }
+
+    /**
+     * @return TransactionInterface[]
+     */
+    public function getTransactions(): array
+    {
+        return $this->transactions;
+    }
+
+    /**
+     * @param TransactionInterface[] $transactions
+     */
+    public function setTransactions(array $transactions)
+    {
+        foreach ($transactions as $transaction) {
+            $this->addTransaction($transaction);
+        }
+    }
+
+    /**
+     * @param TransactionInterface $transaction
+     */
+    public function addTransaction(TransactionInterface $transaction)
+    {
+        $this->transactions[] = $transaction;
+    }
+
+    /**
+     * @param TransactionInterface $transaction
+     *
+     * @return TransactionInterface[]
+     */
+    public function removeTransaction(TransactionInterface $transaction): array
+    {
+        foreach ($this->transactions as $index => $origin) {
+            if ($origin->getId() === $transaction->getId()) {
+                unset($this->transactions[$index]);
+
+                return $this->transactions;
+            }
+        }
     }
 }

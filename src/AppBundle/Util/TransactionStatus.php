@@ -7,4 +7,10 @@ namespace AppBundle\Util;
  */
 class TransactionStatus
 {
+    const PENDING = 'pending';
+    const WAITING_FOR_PAYMENT = 'waiting_for_payment';
+    const ORDER_SUPPLIER = 'order_supplier';
+    const DELIVERING = 'delivering';
+    const COMPLETE = 'complete';
+    const CANCEL = 'cancel';
 }

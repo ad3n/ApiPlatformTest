@@ -15,12 +15,12 @@ interface TransactionInterface
     /**
      * @return \DateTime
      */
-    public function getDateTime(): \DateTime;
+    public function getTransactionDate(): \DateTime;
 
     /**
      * @param \DateTime $dateTime
      */
-    public function setDateTime(\DateTime $dateTime);
+    public function setTransactionDate(\DateTime $dateTime);
 
     /**
      * @return OwnerableInterface
@@ -97,5 +97,5 @@ interface TransactionInterface
     /**
      * @return string
      */
-    public function getStatus(): string;
+    public function getTransactionStatus(): string;
 }

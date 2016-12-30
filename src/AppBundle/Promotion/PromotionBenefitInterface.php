@@ -15,6 +15,11 @@ interface PromotionBenefitInterface
     public function getId(): int;
 
     /**
+     * @return PromotableInterface
+     */
+    public function getOwner(): PromotableInterface;
+
+    /**
      * @return string
      */
     public function getName(): string;

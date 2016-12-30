@@ -177,7 +177,7 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function addItem(ItemInterface $item)
     {
-        $this->items[$item->getId()] = $item;
+        $this->items[] = $item;
     }
 
     /**
@@ -187,8 +187,12 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function removeItem(ItemInterface $item): array
     {
-        unset($this->items[$item->getId()]);
+        foreach ($this->items as $index => $origin) {
+            if ($origin->getId() === $item->getId()) {
+                unset($this->items[$index]);
 
-        return $this->items;
+                return $this->items;
+            }
+        }
     }
 }

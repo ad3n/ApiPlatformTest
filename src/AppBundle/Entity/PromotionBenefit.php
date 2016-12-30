@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Product\ProductInterface;
 use AppBundle\Promotion\ItemInterface;
+use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionBenefitInterface;
 use AppBundle\Promotion\ItemRepositoryInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,6 +33,14 @@ class PromotionBenefit implements PromotionBenefitInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @var PromotableInterface
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transaction")
+     * @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
+     */
+    private $owner;
 
     /**
      * @var string
@@ -108,6 +117,22 @@ class PromotionBenefit implements PromotionBenefitInterface
     }
 
     /**
+     * @return PromotableInterface
+     */
+    public function getOwner(): PromotableInterface
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param PromotableInterface $owner
+     */
+    public function setOwner(PromotableInterface $owner)
+    {
+        $this->owner = $owner;
+    }
+
+    /**
      * @return string
      */
     public function getName(): string
@@ -152,7 +177,7 @@ class PromotionBenefit implements PromotionBenefitInterface
      */
     public function addItem(ItemInterface $item)
     {
-        $this->items[$item->getId()] = $item;
+        $this->items[] = $item;
     }
 
     /**
@@ -162,9 +187,13 @@ class PromotionBenefit implements PromotionBenefitInterface
      */
     public function removeItem(ItemInterface $item): array
     {
-        unset($this->items[$item->getId()]);
+        foreach ($this->items as $index => $origin) {
+            if ($origin->getId() === $item->getId()) {
+                unset($this->items[$index]);
 
-        return $this->items;
+                return $this->items;
+            }
+        }
     }
 
     /**
