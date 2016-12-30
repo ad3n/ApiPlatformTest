@@ -2,18 +2,13 @@
 
 namespace AppBundle\ShoppingCart;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\RepositoryInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface ShoppingCartRepositoryInterface
+interface ShoppingCartRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function setManager(ObjectManager $objectManager);
-
     /**
      * @param string $uniqueId
      *

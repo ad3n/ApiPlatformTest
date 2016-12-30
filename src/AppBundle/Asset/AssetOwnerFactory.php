@@ -22,7 +22,7 @@ class AssetOwnerFactory
     /**
      * @param AssetRepositoryInterface $assetRepository
      */
-    public function addAssetOwnerRepository(AssetRepositoryInterface $assetRepository)
+    public function addRepository(AssetRepositoryInterface $assetRepository)
     {
         $this->assetOwnerRepositories[] = $assetRepository;
     }

@@ -2,18 +2,13 @@
 
 namespace AppBundle\Promotion;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\RepositoryInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface PromotionRepositoryInterface
+interface PromotionRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function setManager(ObjectManager $objectManager);
-
     /**
      * @param string $voucherCode
      *

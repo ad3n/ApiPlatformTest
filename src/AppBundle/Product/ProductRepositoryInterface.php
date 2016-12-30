@@ -2,18 +2,13 @@
 
 namespace AppBundle\Product;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\RepositoryInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface ProductRepositoryInterface
+interface ProductRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function setManager(ObjectManager $objectManager);
-
     /**
      * @param int $id
      *

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
+use AppBundle\Product\HasProductInterface;
 use AppBundle\Product\ProductInterface;
 use AppBundle\Promotion\ItemInterface;
 use AppBundle\Promotion\PromotableInterface;
@@ -20,7 +21,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class TransactionBenefit implements PromotionBenefitInterface
+class TransactionBenefit implements PromotionBenefitInterface, HasProductInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -85,9 +86,18 @@ class TransactionBenefit implements PromotionBenefitInterface
     private $cashback;
 
     /**
-     * @var ProductInterface
+     * @var int
+     *
+     * @ORM\Column(type="integer")
      */
-    private $product;
+    private $productId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $productSource;
 
     /**
      * @var string
@@ -102,6 +112,11 @@ class TransactionBenefit implements PromotionBenefitInterface
      * @ORM\Column(type="integer")
      */
     private $point;
+
+    /**
+     * @var ProductInterface
+     */
+    private $product;
 
     /**
      * @var ItemInterface[]
@@ -237,11 +252,29 @@ class TransactionBenefit implements PromotionBenefitInterface
     }
 
     /**
+     * @return int
+     */
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductSource(): string
+    {
+        return $this->productSource;
+    }
+
+    /**
      * @param ProductInterface $product
      */
     public function setProduct(ProductInterface $product)
     {
         $this->product = $product;
+        $this->productId = $product->getId();
+        $this->productSource = get_class($product);
     }
 
     /**

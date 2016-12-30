@@ -2,18 +2,13 @@
 
 namespace AppBundle\Price;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\RepositoryInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface PriceLogRepositoryInterface
+interface PriceLogRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function setManager(ObjectManager $objectManager);
-
     /**
      * @param PricableInterface $owner
      *

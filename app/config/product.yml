@@ -1,0 +1,17 @@
+services:
+    app.product.diamond_repository:
+        class: AppBundle\Repository\DiamondRepository
+        arguments:
+            - 'AppBundle\Entity\Diamond'
+        tags:
+            - { name: 'product_repository' }
+
+    app.product.product_factory:
+        class: AppBundle\Product\ProductFactory
+
+    app.product.has_product_subscriber:
+        class: AppBundle\Product\HasProductSubscriber
+        arguments:
+            - '@app.product.product_factory'
+        tags:
+            - { name: 'doctrine.event_subscriber' }

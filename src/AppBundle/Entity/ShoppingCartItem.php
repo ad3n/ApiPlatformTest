@@ -3,8 +3,8 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use AppBundle\ShoppingCart\ItemInterface;
-use AppBundle\ShoppingCart\ItemRepositoryInterface;
+use AppBundle\Product\HasProductInterface;
+use AppBundle\Product\ProductInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +18,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class ShoppingCartItem implements ShoppingCartItemInterface
+class ShoppingCartItem implements ShoppingCartItemInterface, HasProductInterface
 {
     use Timestampable;
 
@@ -44,14 +44,14 @@ class ShoppingCartItem implements ShoppingCartItemInterface
      *
      * @ORM\Column(type="integer")
      */
-    private $itemId;
+    private $productId;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
      */
-    private $itemSource;
+    private $productSource;
 
     /**
      * @var int
@@ -61,16 +61,16 @@ class ShoppingCartItem implements ShoppingCartItemInterface
     private $quantity;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="array")
      */
     private $metadata;
 
     /**
-     * @var ItemInterface
+     * @var ProductInterface
      */
-    private $item;
+    private $product;
 
     /**
      * @return int
@@ -78,14 +78,6 @@ class ShoppingCartItem implements ShoppingCartItemInterface
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param ShoppingCartInterface $owner
-     */
-    public function setOwner(ShoppingCartInterface $owner)
-    {
-        $this->owner = $owner;
     }
 
     /**
@@ -97,21 +89,45 @@ class ShoppingCartItem implements ShoppingCartItemInterface
     }
 
     /**
-     * @param ItemInterface $item
+     * @param ShoppingCartInterface $owner
      */
-    public function setItem(ItemInterface $item)
+    public function setOwner(ShoppingCartInterface $owner)
     {
-        $this->item = $item;
-        $this->itemId = $item->getId();
-        $this->itemSource = get_class($item);
+        $this->owner = $owner;
     }
 
     /**
-     * @return ItemInterface
+     * @return ProductInterface
      */
-    public function getItem(): ItemInterface
+    public function getProduct(): ProductInterface
     {
-        return $this->item;
+        return $this->product;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductSource(): string
+    {
+        return $this->productSource;
+    }
+
+    /**
+     * @param ProductInterface $product
+     */
+    public function setProduct(ProductInterface $product)
+    {
+        $this->product = $product;
+        $this->productId = $product->getId();
+        $this->productSource = get_class($product);
     }
 
     /**
@@ -119,7 +135,15 @@ class ShoppingCartItem implements ShoppingCartItemInterface
      */
     public function getQuantity(): int
     {
-        // TODO: Implement getQuantity() method.
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity)
+    {
+        $this->quantity = $quantity;
     }
 
     /**
@@ -128,7 +152,7 @@ class ShoppingCartItem implements ShoppingCartItemInterface
      */
     public function addMetadata(string $key, string $value)
     {
-        // TODO: Implement addMetadata() method.
+        $this->metadata[$key] = $value;
     }
 
     /**
@@ -136,7 +160,9 @@ class ShoppingCartItem implements ShoppingCartItemInterface
      */
     public function setMetadata(array $metadata)
     {
-        // TODO: Implement setMetadata() method.
+        foreach ($metadata as $key => $value) {
+            $this->addMetadata($key, $value);
+        }
     }
 
     /**
@@ -144,17 +170,6 @@ class ShoppingCartItem implements ShoppingCartItemInterface
      */
     public function getMetadata(): array
     {
-        // TODO: Implement getMetadata() method.
-    }
-
-    public function serializeItem()
-    {
-    }
-
-    /**
-     * @param ItemRepositoryInterface $itemRepository
-     */
-    public function unserializeItem(ItemRepositoryInterface $itemRepository)
-    {
+        return $this->metadata;
     }
 }

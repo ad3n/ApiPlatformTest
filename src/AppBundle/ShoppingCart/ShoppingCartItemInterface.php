@@ -2,6 +2,8 @@
 
 namespace AppBundle\ShoppingCart;
 
+use AppBundle\Product\ProductInterface;
+
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -18,9 +20,9 @@ interface ShoppingCartItemInterface
     public function getOwner(): ShoppingCartInterface;
 
     /**
-     * @return ItemInterface
+     * @return ProductInterface
      */
-    public function getItem(): ItemInterface;
+    public function getProduct(): ProductInterface;
 
     /**
      * @return int
@@ -42,11 +44,4 @@ interface ShoppingCartItemInterface
      * @return array
      */
     public function getMetadata(): array;
-
-    public function serializeItem();
-
-    /**
-     * @param ItemRepositoryInterface $itemRepository
-     */
-    public function unserializeItem(ItemRepositoryInterface $itemRepository);
 }

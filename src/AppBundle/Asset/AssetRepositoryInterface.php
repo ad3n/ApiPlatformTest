@@ -2,18 +2,13 @@
 
 namespace AppBundle\Asset;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use AppBundle\Repository\RepositoryInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface AssetRepositoryInterface
+interface AssetRepositoryInterface extends RepositoryInterface
 {
-    /**
-     * @param ObjectManager $objectManager
-     */
-    public function setManager(ObjectManager $objectManager);
-
     /**
      * @param string $owner
      * @param int    $sourceId

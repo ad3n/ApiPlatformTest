@@ -9,10 +9,10 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class AssetOwnerRepositoryCompilerPass implements CompilerPassInterface
+class ProductRepositoryCompilerPass implements CompilerPassInterface
 {
-    const SERVICETAG = 'asset_owner_repository';
-    const SERVICEID = 'app.asset.factory.asset_owner_factory';
+    const SERVICETAG = 'product_repository';
+    const SERVICEID = 'app.product.product_factory';
 
     /**
      * @param ContainerBuilder $container
