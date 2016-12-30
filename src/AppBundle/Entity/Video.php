@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
-use AppBundle\Asset\ResourceInterface;
+use AppBundle\Asset\AssetInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Component\HttpFoundation\File\File;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Video implements ResourceInterface
+class Video implements AssetInterface
 {
     use Timestampable;
     use ActionLoggable;

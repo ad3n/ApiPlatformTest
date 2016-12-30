@@ -13,11 +13,6 @@ interface SiblingInterface
     public function addSibling(SiblingInterface $sibling);
 
     /**
-     * @param SiblingInterface $sibling
-     */
-    public function removeSibling(SiblingInterface $sibling);
-
-    /**
      * @return int
      */
     public function getSiblingTo(): int;

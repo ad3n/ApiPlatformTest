@@ -176,22 +176,6 @@ class Transaction implements TransactionInterface, PromotableInterface
     }
 
     /**
-     * @param PromotionBenefitInterface $promotionBenefit
-     *
-     * @return PromotionBenefitInterface[]
-     */
-    public function removeBenefit(PromotionBenefitInterface $promotionBenefit): array
-    {
-        foreach ($this->benefits as $index => $origin) {
-            if ($origin->getId() === $promotionBenefit->getId()) {
-                unset($this->benefits[$index]);
-
-                return $this->benefits;
-            }
-        }
-    }
-
-    /**
      * @return string
      */
     public function getVoucherCode(): string
@@ -338,21 +322,5 @@ class Transaction implements TransactionInterface, PromotableInterface
     public function addItem(ItemInterface $item)
     {
         $this->items[] = $item;
-    }
-
-    /**
-     * @param ItemInterface $item
-     *
-     * @return ItemInterface[]
-     */
-    public function removeItem(ItemInterface $item): array
-    {
-        foreach ($this->items as $index => $origin) {
-            if ($origin->getId() === $item->getId()) {
-                unset($this->items[$index]);
-
-                return $this->items;
-            }
-        }
     }
 }

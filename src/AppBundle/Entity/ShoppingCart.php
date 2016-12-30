@@ -179,20 +179,4 @@ class ShoppingCart implements ShoppingCartInterface
     {
         $this->items[] = $item;
     }
-
-    /**
-     * @param ItemInterface $item
-     *
-     * @return ItemInterface[]
-     */
-    public function removeItem(ItemInterface $item): array
-    {
-        foreach ($this->items as $index => $origin) {
-            if ($origin->getId() === $item->getId()) {
-                unset($this->items[$index]);
-
-                return $this->items;
-            }
-        }
-    }
 }

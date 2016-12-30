@@ -6,10 +6,22 @@ services:
         calls:
             - [setContainer, ['@service_container']]
 
+    app.price.price_log_repository:
+        class: AppBundle\Repository\PriceLogRepository
+        arguments:
+            - 'AppBundle\Entity\PriceLog'
+
     app.price.price_without_tax:
         class: AppBundle\Price\PriceWithoutTaxCalculator
         tags:
             - { name: 'price_calculator' }
+
+#    app.price.price_log_subscriber:
+#        class: AppBundle\Price\PriceLogSubscriber
+#        arguments:
+#            - '@app.price.price_log_repository'
+#        tags:
+#            - { name: 'doctrine.event_subscriber' }
 
     app.price.price_calculator_subscriber:
         class: AppBundle\Price\PriceCalculatorSubscriber

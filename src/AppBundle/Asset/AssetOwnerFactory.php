@@ -39,7 +39,7 @@ class AssetOwnerFactory
      * @param string $owner
      * @param int    $sourceId
      *
-     * @return ResourceInterface[]
+     * @return AssetInterface[]
      */
     public function findByOwner(string $owner, int $sourceId): array
     {
@@ -58,7 +58,7 @@ class AssetOwnerFactory
      * @param int    $sourceId
      * @param string $group
      *
-     * @return ResourceInterface[]
+     * @return AssetInterface[]
      */
     public function findByOwnerAndGroup(string $owner, int $sourceId, string $group): array
     {

@@ -181,22 +181,6 @@ class TransactionBenefit implements PromotionBenefitInterface
     }
 
     /**
-     * @param ItemInterface $item
-     *
-     * @return ItemInterface[]
-     */
-    public function removeItem(ItemInterface $item): array
-    {
-        foreach ($this->items as $index => $origin) {
-            if ($origin->getId() === $item->getId()) {
-                unset($this->items[$index]);
-
-                return $this->items;
-            }
-        }
-    }
-
-    /**
      * @return float
      */
     public function getDiscountValue(): float

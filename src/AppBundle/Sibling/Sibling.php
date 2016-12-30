@@ -26,14 +26,6 @@ final class Sibling implements SiblingInterface
     }
 
     /**
-     * @param SiblingInterface $sibling
-     */
-    public function removeSibling(SiblingInterface $sibling)
-    {
-        unset($this->siblings[sprintf('%s#%s', get_class($sibling), $sibling->getSiblingTo())]);
-    }
-
-    /**
      * @param int $siblingTo
      */
     public function setSiblingTo(int $siblingTo)

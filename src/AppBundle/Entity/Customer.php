@@ -377,20 +377,4 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface, Transac
     {
         $this->transactions[] = $transaction;
     }
-
-    /**
-     * @param TransactionInterface $transaction
-     *
-     * @return TransactionInterface[]
-     */
-    public function removeTransaction(TransactionInterface $transaction): array
-    {
-        foreach ($this->transactions as $index => $origin) {
-            if ($origin->getId() === $transaction->getId()) {
-                unset($this->transactions[$index]);
-
-                return $this->transactions;
-            }
-        }
-    }
 }

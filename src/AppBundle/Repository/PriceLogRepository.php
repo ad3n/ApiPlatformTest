@@ -2,14 +2,15 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Asset\AssetRepositoryInterface;
-use AppBundle\Asset\AssetInterface;
+use AppBundle\Price\PricableInterface;
+use AppBundle\Price\PriceLogInterface;
+use AppBundle\Price\PriceLogRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class AssetRepository implements AssetRepositoryInterface
+class PriceLogRepository implements PriceLogRepositoryInterface
 {
     /**
      * @var \Doctrine\Common\Persistence\ObjectRepository
@@ -39,25 +40,12 @@ class AssetRepository implements AssetRepositoryInterface
     }
 
     /**
-     * @param string $owner
-     * @param int    $sourceId
+     * @param PricableInterface $owner
      *
-     * @return AssetInterface[]
+     * @return PriceLogInterface[]
      */
-    public function findByOwner(string $owner, int $sourceId): array
+    public function findByOwner(PricableInterface $owner): array
     {
-        return $this->repository->findBy(['owner' => $owner, 'sourceId' => $sourceId]);
-    }
-
-    /**
-     * @param string $owner
-     * @param int    $sourceId
-     * @param string $group
-     *
-     * @return AssetInterface[]
-     */
-    public function findByOwnerAndGroup(string $owner, int $sourceId, string $group): array
-    {
-        return $this->repository->findBy(['owner' => $owner, 'sourceId' => $sourceId, 'group' => $group]);
+        return $this->repository->findBy(['owner' => get_class($owner), 'sourceId' => $owner->getId()]);
     }
 }

@@ -34,7 +34,7 @@ class AssetSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof ResourceInterface) {
+        if (!$entity instanceof AssetInterface) {
             return;
         }
 
@@ -48,7 +48,7 @@ class AssetSubscriber implements EventSubscriber
     {
         $entity = $args->getEntity();
 
-        if (!$entity instanceof ResourceInterface) {
+        if (!$entity instanceof AssetInterface) {
             return;
         }
 
@@ -58,7 +58,7 @@ class AssetSubscriber implements EventSubscriber
     /**
      * @param $entity
      */
-    private function uploadFile(ResourceInterface $entity)
+    private function uploadFile(AssetInterface $entity)
     {
         $file = $entity->getUploadedFile();
 
@@ -74,10 +74,10 @@ class AssetSubscriber implements EventSubscriber
      */
     public function postLoad(LifecycleEventArgs $args)
     {
-        /** @var ResourceInterface $entity */
+        /** @var AssetInterface $entity */
         $entity = $args->getEntity();
 
-        if (!$entity instanceof ResourceInterface) {
+        if (!$entity instanceof AssetInterface) {
             return;
         }
 

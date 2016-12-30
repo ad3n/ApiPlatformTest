@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
+use AppBundle\Promotion\ItemInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -15,7 +16,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class PromotionItem
+class PromotionItem implements ItemInterface
 {
     use Timestampable;
     use ActionLoggable;

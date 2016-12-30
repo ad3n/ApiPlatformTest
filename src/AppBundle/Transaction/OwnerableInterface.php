@@ -13,6 +13,11 @@ interface OwnerableInterface
     public function getId(): int;
 
     /**
+     * @param TransactionInterface $transaction
+     */
+    public function addTransaction(TransactionInterface $transaction);
+
+    /**
      * @return TransactionInterface[]
      */
     public function getTransactions(): array;
@@ -21,16 +26,4 @@ interface OwnerableInterface
      * @param TransactionInterface[] $transactions
      */
     public function setTransactions(array $transactions);
-
-    /**
-     * @param TransactionInterface $transaction
-     */
-    public function addTransaction(TransactionInterface $transaction);
-
-    /**
-     * @param TransactionInterface $transaction
-     *
-     * @return TransactionInterface[]
-     */
-    public function removeTransaction(TransactionInterface $transaction): array;
 }

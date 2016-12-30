@@ -5,10 +5,11 @@ namespace AppBundle\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Asset\OwnerableInterface;
-use AppBundle\Asset\ResourceInterface;
+use AppBundle\Asset\AssetInterface;
 use AppBundle\Certificate\CertificateInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
+use AppBundle\Price\PriceLogInterface;
 use AppBundle\Product\DiamondInterface;
 use AppBundle\ShoppingCart\ItemInterface as ShoppingCartItemInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -235,9 +236,14 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
     private $isSellable;
 
     /**
-     * @var ResourceInterface[]
+     * @var AssetInterface[]
      */
     private $files;
+
+    /**
+     * @var PriceLogInterface[]
+     */
+    private $priceLogs;
 
     public function __construct()
     {
@@ -705,15 +711,15 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
     }
 
     /**
-     * @param ResourceInterface $resource
+     * @param AssetInterface $resource
      */
-    public function addFile(ResourceInterface $resource)
+    public function addFile(AssetInterface $resource)
     {
         $this->files[] = $resource;
     }
 
     /**
-     * @param ResourceInterface[] $files
+     * @param AssetInterface[] $files
      */
     public function setFiles(array $files)
     {
@@ -723,10 +729,36 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
     }
 
     /**
-     * @return ResourceInterface[]
+     * @return AssetInterface[]
      */
     public function getFiles(): array
     {
         return $this->files;
+    }
+
+    /**
+     * @param PriceLogInterface $priceLog
+     */
+    public function addPriceHistory(PriceLogInterface $priceLog)
+    {
+        $this->priceLogs[] = $priceLog;
+    }
+
+    /**
+     * @param PriceLogInterface[] $priceLogs
+     */
+    public function setPriceHistories(array $priceLogs)
+    {
+        foreach ($priceLogs as $priceLog) {
+            $this->addPriceHistory($priceLog);
+        }
+    }
+
+    /**
+     * @return PriceLogInterface[]
+     */
+    public function getPriceHistories(): array
+    {
+        return $this->priceLogs;
     }
 }

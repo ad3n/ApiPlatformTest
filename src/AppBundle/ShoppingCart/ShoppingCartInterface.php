@@ -38,13 +38,6 @@ interface ShoppingCartInterface
     public function addItem(ItemInterface $item);
 
     /**
-     * @param ItemInterface $item
-     *
-     * @return ItemInterface[]
-     */
-    public function removeItem(ItemInterface $item): array;
-
-    /**
      * @return ItemInterface[]
      */
     public function getItems(): array;

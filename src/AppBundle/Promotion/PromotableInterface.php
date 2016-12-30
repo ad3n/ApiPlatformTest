@@ -13,13 +13,6 @@ interface PromotableInterface
     public function addBenefit(PromotionBenefitInterface $promoBenefit);
 
     /**
-     * @param PromotionBenefitInterface $promotionBenefit
-     *
-     * @return PromotionBenefitInterface[]
-     */
-    public function removeBenefit(PromotionBenefitInterface $promotionBenefit): array;
-
-    /**
      * @param PromotionBenefitInterface[] $benefits
      */
     public function setBenefits(array $benefits);

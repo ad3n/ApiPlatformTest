@@ -76,4 +76,19 @@ interface PricableInterface
      * @param string $serviceId
      */
     public function setPriceCalculatorServiceId(string $serviceId);
+
+    /**
+     * @param PriceLogInterface $priceLog
+     */
+    public function addPriceHistory(PriceLogInterface $priceLog);
+
+    /**
+     * @param PriceLogInterface[] $priceLogs
+     */
+    public function setPriceHistories(array $priceLogs);
+
+    /**
+     * @return PriceLogInterface[]
+     */
+    public function getPriceHistories(): array;
 }

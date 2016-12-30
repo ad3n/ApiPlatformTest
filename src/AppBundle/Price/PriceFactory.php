@@ -63,6 +63,7 @@ class PriceFactory implements ContainerAwareInterface
         $objectManager->persist($priceLogger);
 
         $calculator->calculate($pricable);
+        $pricable->setMarkupPrice($pricable->getPrice() + ($pricable->getMarkupMargin() * $pricable->getPrice()));
 
         $objectManager->flush();
     }

@@ -50,13 +50,6 @@ interface PromotionBenefitInterface
     public function addItem(ItemInterface $item);
 
     /**
-     * @param ItemInterface $item
-     *
-     * @return ItemInterface[]
-     */
-    public function removeItem(ItemInterface $item): array;
-
-    /**
      * @return float
      */
     public function getDiscountValue(): float;
