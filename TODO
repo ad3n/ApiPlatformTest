@@ -4,13 +4,13 @@
 - Create Promotion Item Implementation - Done
 - Create Promotable Subscriber - Done
 - Price Log History Implementation - Done
-- Create Transaction Ownerable Subscriber
-- Create Transaction Item Implementation
-- Create Transaction Item Subscriber
 - Create Transaction Benefit Implementation - Done
 - Create Transaction Benefit Subscriber - Done
 - Shopping Cart Owner Implementation - Done
-- Resolve Product Management in Transaction Benefit and Promotion Item
+- Resolve Product Management in Transaction Benefit and Promotion Item (Solusinya dengan membuat factory pattern dari product repository lalu membuat subscriber untuk product)
+- Create Transaction Ownerable Subscriber
+- Create Transaction Item Implementation
+- Create Transaction Item Subscriber
 - Shopping Cart Item Implementation
 - Shopping Cart
 - Customer

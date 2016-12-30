@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\ShoppingCart;
+namespace AppBundle\Transaction;
 
 use AppBundle\Product\ProductRepositoryInterface;
 
