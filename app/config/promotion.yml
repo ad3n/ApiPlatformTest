@@ -11,6 +11,11 @@ services:
         arguments:
             - 'AppBundle\Entity\PromotionItem'
 
+    app.promotion.promotion_benefit_repository:
+        class: AppBundle\Repository\PromotionBenefitRepository
+        arguments:
+            - 'AppBundle\Entity\PromotionBenefit'
+
     app.promotion.promotion_factory:
         class: AppBundle\Promotion\PromotionFactory
         arguments:
@@ -27,6 +32,13 @@ services:
         class: AppBundle\Promotion\PromotionBenefitSubscriber
         arguments:
             - '@app.promotion.promotion_item_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    app.promotion.promotable_subscriber:
+        class: AppBundle\Promotion\PromotableSubscriber
+        arguments:
+            - '@app.promotion.promotion_benefit_repository'
         tags:
             - { name: 'doctrine.event_subscriber' }
 
