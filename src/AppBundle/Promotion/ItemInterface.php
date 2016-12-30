@@ -23,9 +23,9 @@ interface ItemInterface
     public function getDescription(): string;
 
     /**
-     * @return float
+     * @return int
      */
-    public function getQuantity(): float;
+    public function getQuantity(): int;
 
     /**
      * @return bool
