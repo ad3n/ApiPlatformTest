@@ -10,7 +10,6 @@ use AppBundle\Certificate\CertificateInterface;
 use AppBundle\Model\SupplierInterface;
 use AppBundle\Price\PricableInterface;
 use AppBundle\Product\DiamondInterface;
-use AppBundle\Product\ProductInterface;
 use AppBundle\ShoppingCart\ItemInterface as ShoppingCartItemInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -23,7 +22,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface, PricableInterface, ShoppingCartItemInterface
+class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface, ShoppingCartItemInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -171,6 +170,20 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
      * @ORM\Column(type="float")
      */
     private $basePrice;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $markupMargin;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $markupPrice;
 
     /**
      * @var int
@@ -561,6 +574,38 @@ class Diamond implements DiamondInterface, ProductInterface, OwnerableInterface,
     public function setBasePrice(float $basePrice)
     {
         $this->basePrice = $basePrice;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMarkupMargin(): int
+    {
+        return $this->markupMargin;
+    }
+
+    /**
+     * @param int $markupMargin
+     */
+    public function setMarkupMargin(int $markupMargin)
+    {
+        $this->markupMargin = $markupMargin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMarkupPrice(): float
+    {
+        return $this->markupPrice;
+    }
+
+    /**
+     * @param float $markupPrice
+     */
+    public function setMarkupPrice(float $markupPrice)
+    {
+        $this->markupPrice = $markupPrice;
     }
 
     /**

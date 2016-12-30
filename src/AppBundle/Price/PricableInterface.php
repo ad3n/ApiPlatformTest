@@ -25,6 +25,21 @@ interface PricableInterface
     /**
      * @return int
      */
+    public function getMarkupMargin(): int;
+
+    /**
+     * @return float
+     */
+    public function getMarkupPrice(): float;
+
+    /**
+     * @param float $markupPrice
+     */
+    public function setMarkupPrice(float $markupPrice);
+
+    /**
+     * @return int
+     */
     public function getProfitMargin(): int;
 
     /**
