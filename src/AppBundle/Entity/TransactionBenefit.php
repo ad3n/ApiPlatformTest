@@ -14,13 +14,13 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="promotion_benefits")
+ * @ORM\Table(name="transaction_benefits")
  *
  * @ApiResource()
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class PromotionBenefit implements PromotionBenefitInterface
+class TransactionBenefit implements PromotionBenefitInterface
 {
     use Timestampable;
     use ActionLoggable;
