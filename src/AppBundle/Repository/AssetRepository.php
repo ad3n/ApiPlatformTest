@@ -5,6 +5,7 @@ namespace AppBundle\Repository;
 use AppBundle\Asset\AssetRepositoryInterface;
 use AppBundle\Asset\AssetInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -12,7 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class AssetRepository implements AssetRepositoryInterface
 {
     /**
-     * @var \Doctrine\Common\Persistence\ObjectRepository
+     * @var ObjectRepository
      */
     private $repository;
 

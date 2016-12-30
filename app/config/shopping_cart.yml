@@ -2,5 +2,11 @@ services:
     app.shopping_cart.shopping_cart_repository:
         class: AppBundle\Repository\ShoppingCartRepository
         arguments:
-            - '@doctrine.orm.entity_manager'
             - 'AppBundle\Entity\ShoppingCart'
+
+    app.shopping_cart.shopping_cart_owner_subscriber:
+        class: AppBundle\ShoppingCart\ShoppingCartOwnerSubscriber
+        arguments:
+            - '@app.shopping_cart.shopping_cart_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }

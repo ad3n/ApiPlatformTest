@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use AppBundle\ShoppingCart\ItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use AppBundle\ShoppingCart\OwnerableInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -53,6 +53,27 @@ class ShoppingCart implements ShoppingCartInterface
     private $totalAmount;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $subTotal;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $tax;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     */
+    private $surchargeFee;
+
+    /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
@@ -67,7 +88,7 @@ class ShoppingCart implements ShoppingCartInterface
     private $processingDate;
 
     /**
-     * @var ItemInterface[]
+     * @var ShoppingCartItemInterface[]
      */
     private $items;
 
@@ -133,6 +154,54 @@ class ShoppingCart implements ShoppingCartInterface
     }
 
     /**
+     * @return float
+     */
+    public function getSubTotal(): float
+    {
+        return $this->subTotal;
+    }
+
+    /**
+     * @param float $subTotal
+     */
+    public function setSubTotal(float $subTotal)
+    {
+        $this->subTotal = $subTotal;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTax(): float
+    {
+        return $this->tax;
+    }
+
+    /**
+     * @param float $tax
+     */
+    public function setTax(float $tax)
+    {
+        $this->tax = $tax;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSurchargeFee(): float
+    {
+        return $this->surchargeFee;
+    }
+
+    /**
+     * @param float $surchargeFee
+     */
+    public function setSurchargeFee(float $surchargeFee)
+    {
+        $this->surchargeFee = $surchargeFee;
+    }
+
+    /**
      * @return bool
      */
     public function isProcessed(): bool
@@ -165,7 +234,7 @@ class ShoppingCart implements ShoppingCartInterface
     }
 
     /**
-     * @return ItemInterface[]
+     * @return ShoppingCartItemInterface[]
      */
     public function getItems(): array
     {
@@ -173,9 +242,19 @@ class ShoppingCart implements ShoppingCartInterface
     }
 
     /**
-     * @param ItemInterface $item
+     * @param ShoppingCartItemInterface[] $items
      */
-    public function addItem(ItemInterface $item)
+    public function setItems(array $items)
+    {
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+    }
+
+    /**
+     * @param ShoppingCartItemInterface $item
+     */
+    public function addItem(ShoppingCartItemInterface $item)
     {
         $this->items[] = $item;
     }

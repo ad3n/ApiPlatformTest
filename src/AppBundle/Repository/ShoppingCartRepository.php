@@ -6,6 +6,7 @@ use AppBundle\ShoppingCart\OwnerableInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use AppBundle\ShoppingCart\ShoppingCartRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
@@ -13,17 +14,29 @@ use Doctrine\Common\Persistence\ObjectManager;
 class ShoppingCartRepository implements ShoppingCartRepositoryInterface
 {
     /**
-     * @var \Doctrine\Common\Persistence\ObjectRepository
+     * @var string
+     */
+    private $dataClass;
+
+    /**
+     * @var ObjectRepository
      */
     private $repository;
 
     /**
-     * @param ObjectManager $objectManager
-     * @param string        $dataClass
+     * @param string $dataClass
      */
-    public function __construct(ObjectManager $objectManager, string $dataClass)
+    public function __construct(string $dataClass)
     {
-        $metadata = $objectManager->getClassMetadata($dataClass);
+        $this->dataClass = $dataClass;
+    }
+
+    /**
+     * @param ObjectManager $objectManager
+     */
+    public function setManager(ObjectManager $objectManager)
+    {
+        $metadata = $objectManager->getClassMetadata($this->dataClass);
         $this->repository = $objectManager->getRepository($metadata->getName());
     }
 

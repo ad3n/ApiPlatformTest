@@ -33,12 +33,47 @@ interface ShoppingCartInterface
     public function setTotalAmount(float $totalAmount);
 
     /**
-     * @param ItemInterface $item
+     * @return float
      */
-    public function addItem(ItemInterface $item);
+    public function getSubTotal(): float;
 
     /**
-     * @return ItemInterface[]
+     * @param float $subTotal
+     */
+    public function setSubTotal(float $subTotal);
+
+    /**
+     * @return float
+     */
+    public function getTax(): float;
+
+    /**
+     * @param float $tax
+     */
+    public function setTax(float $tax);
+
+    /**
+     * @return float
+     */
+    public function getSurchargeFee(): float;
+
+    /**
+     * @param float $surchargeFee
+     */
+    public function setSurchargeFee(float $surchargeFee);
+
+    /**
+     * @param ShoppingCartItemInterface $item
+     */
+    public function addItem(ShoppingCartItemInterface $item);
+
+    /**
+     * @param ShoppingCartItemInterface[] $items
+     */
+    public function setItems(array $items);
+
+    /**
+     * @return ShoppingCartItemInterface[]
      */
     public function getItems(): array;
 

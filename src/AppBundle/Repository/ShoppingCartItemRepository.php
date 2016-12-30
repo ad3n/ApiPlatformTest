@@ -2,26 +2,26 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Price\PricableInterface;
-use AppBundle\Price\PriceLogInterface;
-use AppBundle\Price\PriceLogRepositoryInterface;
+use AppBundle\ShoppingCart\ShoppingCartInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Persistence\ObjectRepository;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class PriceLogRepository implements PriceLogRepositoryInterface
+class ShoppingCartItemRepository implements ShoppingCartItemRepositoryInterface
 {
-    /**
-     * @var ObjectRepository
-     */
-    private $repository;
-
     /**
      * @var string
      */
     private $dataClass;
+
+    /**
+     * @var ObjectRepository
+     */
+    private $repository;
 
     /**
      * @param string $dataClass
@@ -41,12 +41,12 @@ class PriceLogRepository implements PriceLogRepositoryInterface
     }
 
     /**
-     * @param PricableInterface $owner
+     * @param ShoppingCartInterface $owner
      *
-     * @return PriceLogInterface[]
+     * @return ShoppingCartItemInterface[]
      */
-    public function findByOwner(PricableInterface $owner): array
+    public function findByOwner(ShoppingCartInterface $owner)
     {
-        return $this->repository->findBy(['owner' => get_class($owner), 'sourceId' => $owner->getId()]);
+        return $this->repository->findBy(['owner' => $owner]);
     }
 }

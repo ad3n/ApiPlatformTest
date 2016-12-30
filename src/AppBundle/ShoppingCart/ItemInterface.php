@@ -21,4 +21,14 @@ interface ItemInterface
      * @return string
      */
     public function getDescription(): string;
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float;
+
+    /**
+     * @return float
+     */
+    public function getTax(): float;
 }
