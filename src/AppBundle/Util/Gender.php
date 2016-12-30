@@ -7,4 +7,6 @@ namespace AppBundle\Util;
  */
 class Gender
 {
+    const MALE = 'male';
+    const FEMALE = 'female';
 }

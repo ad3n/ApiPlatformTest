@@ -7,4 +7,7 @@ namespace AppBundle\Util;
  */
 class IdentityType
 {
+    const KTP = 'ktp';
+    const SIM = 'sim';
+    const PASSPORT = 'passport';
 }

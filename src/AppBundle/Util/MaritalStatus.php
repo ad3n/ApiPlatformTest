@@ -7,4 +7,8 @@ namespace AppBundle\Util;
  */
 class MaritalStatus
 {
+    const SINGLE = 'single';
+    const MARRIED = 'married';
+    const ENGAGED = 'engaged';
+    const DIVORCED = 'divorced';
 }

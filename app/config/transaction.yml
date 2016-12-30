@@ -1,0 +1,12 @@
+services:
+    app.transaction.transaction_repository:
+        class: AppBundle\Repository\TransactionRepository
+        arguments:
+            - 'AppBundle\Entity\Transaction'
+
+    app.transaction.transaction_owner_subscriber:
+        class: AppBundle\Transaction\TransactionOwnerSubscriber
+        arguments:
+            - '@app.transaction.transaction_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
