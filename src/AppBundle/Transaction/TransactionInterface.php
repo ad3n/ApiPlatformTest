@@ -109,4 +109,9 @@ interface TransactionInterface
      * @return string
      */
     public function getTransactionStatus(): string;
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCompletedAt();
 }

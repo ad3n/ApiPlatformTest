@@ -116,7 +116,7 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface, Transac
      *
      * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @var ShoppingCartInterface
@@ -126,7 +126,7 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface, Transac
     /**
      * @var TransactionInterface[]
      */
-    private $transactions;
+    private $transactions = [];
 
     /**
      * @return int
@@ -345,9 +345,9 @@ class Customer implements CustomerInterface, ShoppingCartOwnerInterface, Transac
     }
 
     /**
-     * @return ShoppingCartInterface
+     * @return ShoppingCartInterface|null
      */
-    public function getShoppingCart(): ShoppingCartInterface
+    public function getShoppingCart()
     {
         return $this->shoppingCart;
     }

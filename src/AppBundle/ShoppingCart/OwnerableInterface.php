@@ -20,5 +20,5 @@ interface OwnerableInterface
     /**
      * @return ShoppingCartInterface
      */
-    public function getShoppingCart(): ShoppingCartInterface;
+    public function getShoppingCart();
 }

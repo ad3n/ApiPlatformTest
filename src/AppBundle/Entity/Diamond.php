@@ -251,7 +251,10 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
         $this->isSellable = true;
         $this->price = 0;
         $this->tax = 0;
+        $this->markupPrice = 0;
+        $this->markupMargin = 0;
         $this->files = [];
+        $this->priceLogs = [];
     }
 
     /**

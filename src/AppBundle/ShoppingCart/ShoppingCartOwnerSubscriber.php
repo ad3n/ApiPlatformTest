@@ -35,7 +35,10 @@ class ShoppingCartOwnerSubscriber implements EventSubscriber
         }
 
         $this->repository->setManager($args->getObjectManager());
-        $entity->setShoppingCart($this->repository->findByOwner($entity));
+        $shoppingCart = $this->repository->findByOwner($entity);
+        if ($shoppingCart) {
+            $entity->setShoppingCart($shoppingCart);
+        }
     }
 
     /**

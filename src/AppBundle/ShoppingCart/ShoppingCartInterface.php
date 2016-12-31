@@ -83,7 +83,7 @@ interface ShoppingCartInterface
     public function isProcessed(): bool;
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getProcessingDate(): \DateTime;
+    public function getProcessingDate();
 }

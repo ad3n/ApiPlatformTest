@@ -109,6 +109,13 @@ class Transaction implements TransactionInterface, PromotableInterface
     private $transactionStatus;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $completedAt;
+
+    /**
      * @var ItemInterface[]
      */
     private $items;
@@ -321,6 +328,22 @@ class Transaction implements TransactionInterface, PromotableInterface
         }
 
         $this->transactionStatus = $transactionStatus;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getCompletedAt()
+    {
+        return $this->completedAt;
+    }
+
+    /**
+     * @param \DateTime $completedAt
+     */
+    public function setCompletedAt(\DateTime $completedAt)
+    {
+        $this->completedAt = $completedAt;
     }
 
     /**

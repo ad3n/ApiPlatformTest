@@ -83,7 +83,7 @@ class ShoppingCart implements ShoppingCartInterface
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $processingDate;
 
@@ -94,6 +94,11 @@ class ShoppingCart implements ShoppingCartInterface
 
     public function __construct()
     {
+        $this->totalAmount = 0;
+        $this->subTotal = 0;
+        $this->surchargeFee = 0;
+        $this->tax = 0;
+        $this->isProcessed = false;
         $this->items = [];
     }
 
@@ -218,9 +223,9 @@ class ShoppingCart implements ShoppingCartInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getProcessingDate(): \DateTime
+    public function getProcessingDate()
     {
         return $this->processingDate;
     }
