@@ -6,7 +6,7 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\AssetOwner;
-use AppBundle\Util\CamelCaseToWord;
+use AppBundle\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -114,7 +114,7 @@ class AssetOwnerDataProvider implements ContainerAwareInterface, CollectionDataP
             $assetOwner->setId($id);
             $assetOwner->setOwner($owner);
             $assetOwner->setOwnerClass($reflection->getName());
-            $assetOwner->setName(CamelCaseToWord::convert($reflection->getShortName()));
+            $assetOwner->setName(StringUtil::camelCaseToWord($reflection->getShortName()));
 
             $owners[] = $assetOwner;
         }

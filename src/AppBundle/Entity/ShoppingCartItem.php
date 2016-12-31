@@ -7,6 +7,7 @@ use AppBundle\Product\HasProductInterface;
 use AppBundle\Product\ProductInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use AppBundle\ShoppingCart\ShoppingCartItemInterface;
+use AppBundle\Util\StringUtil;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -97,9 +98,9 @@ class ShoppingCartItem implements ShoppingCartItemInterface, HasProductInterface
     }
 
     /**
-     * @return ProductInterface
+     * @return ProductInterface|null
      */
-    public function getProduct(): ProductInterface
+    public function getProduct()
     {
         return $this->product;
     }
@@ -113,11 +114,34 @@ class ShoppingCartItem implements ShoppingCartItemInterface, HasProductInterface
     }
 
     /**
+     * @param int $id
+     */
+    public function setProductId(int $id)
+    {
+        $this->productId = $id;
+    }
+
+    /**
      * @return string
      */
     public function getProductSource(): string
     {
         return $this->productSource;
+    }
+
+    /**
+     * @param string $source
+     */
+    public function setProductSource(string $source)
+    {
+        $productClass = sprintf('AppBundle\Entity\%s', StringUtil::underScoreToCamelCase($source));
+        $product = new $productClass();
+        if (!$product instanceof ProductInterface) {
+            throw new \InvalidArgumentException(sprintf('Product with type %s is not found', $source));
+        }
+
+        $this->product = $product;
+        $this->productSource = get_class($product);
     }
 
     /**

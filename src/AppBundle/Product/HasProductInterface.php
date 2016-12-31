@@ -18,9 +18,9 @@ interface HasProductInterface
     public function getProductSource(): string;
 
     /**
-     * @return ProductInterface
+     * @return ProductInterface|null
      */
-    public function getProduct(): ProductInterface;
+    public function getProduct();
 
     /**
      * @param ProductInterface $product

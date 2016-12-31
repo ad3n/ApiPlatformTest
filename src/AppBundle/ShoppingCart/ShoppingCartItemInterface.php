@@ -20,9 +20,14 @@ interface ShoppingCartItemInterface
     public function getOwner(): ShoppingCartInterface;
 
     /**
-     * @return ProductInterface
+     * @return ProductInterface|null
      */
-    public function getProduct(): ProductInterface;
+    public function getProduct();
+
+    /**
+     * @param ProductInterface $product
+     */
+    public function setProduct(ProductInterface $product);
 
     /**
      * @return int

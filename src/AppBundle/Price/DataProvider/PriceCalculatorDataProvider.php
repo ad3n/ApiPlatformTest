@@ -6,7 +6,7 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\PriceCalculator;
-use AppBundle\Util\CamelCaseToWord;
+use AppBundle\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -95,7 +95,7 @@ final class PriceCalculatorDataProvider implements ContainerAwareInterface, Coll
             $calculator = new PriceCalculator();
             $calculator->setId($id);
             $calculator->setServiceId($priceCalculator);
-            $calculator->setName(CamelCaseToWord::convert($reflection->getShortName()));
+            $calculator->setName(StringUtil::camelCaseToWord($reflection->getShortName()));
 
             $priceCalculators[] = $calculator;
         }

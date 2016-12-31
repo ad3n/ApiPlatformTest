@@ -6,7 +6,7 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\PromotionProvider;
-use AppBundle\Util\CamelCaseToWord;
+use AppBundle\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -95,7 +95,7 @@ final class PromotionDataProvider implements ContainerAwareInterface, Collection
             $calculator = new PromotionProvider();
             $calculator->setId($id);
             $calculator->setServiceId($promotionProvider);
-            $calculator->setName(CamelCaseToWord::convert($reflection->getShortName()));
+            $calculator->setName(StringUtil::camelCaseToWord($reflection->getShortName()));
 
             $promotionProviders[] = $calculator;
         }

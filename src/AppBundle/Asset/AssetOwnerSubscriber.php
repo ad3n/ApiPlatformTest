@@ -3,6 +3,7 @@
 namespace AppBundle\Asset;
 
 use AppBundle\Asset\DataProvider\AssetOwnerDataProvider;
+use AppBundle\Entity\AssetOwner;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
@@ -42,9 +43,10 @@ class AssetOwnerSubscriber implements EventSubscriber
             return;
         }
 
+        /** @var AssetOwner $owner */
         $owner = $this->assetOwnerDataProvider->getOwnerByClass(get_class($entity));
         $this->assetOwnerFactory->setManager($args->getObjectManager());
-        $entity->setFiles($this->assetOwnerFactory->findByOwner($owner, $entity->getId()));
+        $entity->setFiles($this->assetOwnerFactory->findByOwner($owner->getOwnerClass(), $entity->getId()));
     }
 
     /**
