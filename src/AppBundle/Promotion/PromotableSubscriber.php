@@ -4,6 +4,7 @@ namespace AppBundle\Promotion;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**
@@ -17,11 +18,18 @@ class PromotableSubscriber implements EventSubscriber
     private $repository;
 
     /**
-     * @param PromotionBenefitRepositoryInterface $promotionBenefitRepository
+     * @var PromotionFactory
      */
-    public function __construct(PromotionBenefitRepositoryInterface $promotionBenefitRepository)
+    private $promotionFactory;
+
+    /**
+     * @param PromotionBenefitRepositoryInterface $promotionBenefitRepository
+     * @param PromotionFactory $promotionFactory
+     */
+    public function __construct(PromotionBenefitRepositoryInterface $promotionBenefitRepository, PromotionFactory $promotionFactory)
     {
         $this->repository = $promotionBenefitRepository;
+        $this->promotionFactory = $promotionFactory;
     }
 
     /**
@@ -39,10 +47,38 @@ class PromotableSubscriber implements EventSubscriber
     }
 
     /**
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getEntity();
+        if (!$entity instanceof PromotableInterface) {
+            return;
+        }
+
+        $this->promotionFactory->setManager($eventArgs->getObjectManager());
+        $this->promotionFactory->calculateBenefit($entity);
+    }
+
+    /**
+     * @param PreUpdateEventArgs $eventArgs
+     */
+    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    {
+        $entity = $eventArgs->getEntity();
+        if (!$entity instanceof PromotableInterface) {
+            return;
+        }
+
+        $this->promotionFactory->setManager($eventArgs->getObjectManager());
+        $this->promotionFactory->calculateBenefit($entity);
+    }
+
+    /**
      * @return array
      */
     public function getSubscribedEvents()
     {
-        return [Events::postLoad];
+        return [Events::postLoad, Events::prePersist, Events::preUpdate];
     }
 }

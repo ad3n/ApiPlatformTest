@@ -59,7 +59,6 @@ class ActionLoggableSubscriber implements EventSubscriber
      */
     public function prePersist(LifecycleEventArgs $eventArgs)
     {
-        /** @var ActionLoggable $entity */
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
             return;
@@ -73,7 +72,6 @@ class ActionLoggableSubscriber implements EventSubscriber
      */
     public function preUpdate(PreUpdateEventArgs $eventArgs)
     {
-        /** @var ActionLoggable $entity */
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
             return;
