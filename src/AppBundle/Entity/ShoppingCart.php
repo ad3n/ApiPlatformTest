@@ -11,7 +11,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="shopping_carts")
+ * @ORM\Table(name="shoppingcarts")
  *
  * @ApiResource()
  *

@@ -39,6 +39,7 @@ services:
         class: AppBundle\Promotion\PromotableSubscriber
         arguments:
             - '@app.promotion.promotion_benefit_repository'
+            - '@app.promotion.promotion_factory'
         tags:
             - { name: 'doctrine.event_subscriber' }
 

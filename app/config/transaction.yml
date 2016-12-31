@@ -10,3 +10,8 @@ services:
             - '@app.transaction.transaction_repository'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    app.transaction.transaction_subscriber:
+        class: AppBundle\Transaction\TransactionSubscriber
+        tags:
+            - { name: 'doctrine.event_subscriber' }

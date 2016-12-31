@@ -2,6 +2,9 @@
 
 namespace AppBundle\Transaction;
 
+use AppBundle\ShoppingCart\ItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartInterface;
+
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -26,6 +29,16 @@ interface TransactionInterface
      * @return OwnerableInterface
      */
     public function getOwner(): OwnerableInterface;
+
+    /**
+     * @return ShoppingCartInterface
+     */
+    public function getShoppingCart(): ShoppingCartInterface;
+
+    /**
+     * @param ShoppingCartInterface $shoppingCart
+     */
+    public function setShoppingCart(ShoppingCartInterface $shoppingCart);
 
     /**
      * @return float
@@ -86,6 +99,11 @@ interface TransactionInterface
      * @return ItemInterface[]
      */
     public function getItems(): array;
+
+    /**
+     * @param array $items
+     */
+    public function setItems(array $items);
 
     /**
      * @return string

@@ -6,7 +6,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionBenefitInterface;
-use AppBundle\Transaction\ItemInterface;
+use AppBundle\ShoppingCart\ItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartInterface;
 use AppBundle\Transaction\OwnerableInterface;
 use AppBundle\Transaction\TransactionInterface;
 use AppBundle\Util\TransactionStatus;
@@ -49,6 +50,14 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $owner;
+
+    /**
+     * @var ShoppingCartInterface
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ShoppingCart")
+     * @ORM\JoinColumn(name="shoppingcart_id", referencedColumnName="id")
+     */
+    private $shoppingCart;
 
     /**
      * @var string
@@ -147,6 +156,22 @@ class Transaction implements TransactionInterface, PromotableInterface
     public function setOwner(OwnerableInterface $owner)
     {
         $this->owner = $owner;
+    }
+
+    /**
+     * @return ShoppingCartInterface
+     */
+    public function getShoppingCart(): ShoppingCartInterface
+    {
+        return $this->shoppingCart;
+    }
+
+    /**
+     * @param ShoppingCartInterface $shoppingCart
+     */
+    public function setShoppingCart(ShoppingCartInterface $shoppingCart)
+    {
+        $this->shoppingCart = $shoppingCart;
     }
 
     /**

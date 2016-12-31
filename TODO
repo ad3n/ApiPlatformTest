@@ -10,9 +10,9 @@
 - Resolve Product Management in Transaction Benefit and Promotion Item - Done
 - Shopping Cart Item Implementation - Done
 - Create Transaction Ownerable Subscriber - Done
-- Create Transaction Item Implementation
-- Create Transaction Item Subscriber
-- Shopping Cart to Transaction Transformer (Order Management)
+- Create Transaction Item Implementation - Done
+- Create Transaction Item Subscriber - Done
+- Shopping Cart to Transaction Transformer (Order Management) - Done
 - Customer
 - Payment
 - Product Sibling
