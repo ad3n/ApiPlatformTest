@@ -8,12 +8,15 @@ use AppBundle\ShoppingCart\OwnerableInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="shoppingcarts")
  *
- * @ApiResource()
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"read"}}
+ * })
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -27,6 +30,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read"})
      */
     private $id;
 
@@ -34,6 +39,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Groups({"read"})
      */
     private $uniqueId;
 
@@ -42,6 +49,8 @@ class ShoppingCart implements ShoppingCartInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     *
+     * @Groups({"read"})
      */
     private $owner;
 
@@ -49,6 +58,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $totalAmount;
 
@@ -56,6 +67,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $subTotal;
 
@@ -63,6 +76,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $tax;
 
@@ -70,6 +85,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $surchargeFee;
 
@@ -77,6 +94,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var bool
      *
      * @ORM\Column(type="boolean")
+     *
+     * @Groups({"read"})
      */
     private $isProcessed;
 
@@ -84,6 +103,8 @@ class ShoppingCart implements ShoppingCartInterface
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Groups({"read"})
      */
     private $processingDate;
 
@@ -211,7 +232,7 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function isProcessed(): bool
     {
-        return $this->isProcessed;
+        return $this->isProcessed ?: false;
     }
 
     /**

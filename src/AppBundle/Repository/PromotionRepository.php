@@ -65,7 +65,7 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
     {
         /** @var OwnerableInterface $promotionData */
         $promotionData = $this->repository->findOneBy(['voucherCode' => $voucherCode]);
-        if ($promotionData->isValid()) {
+        if ($promotionData && $promotionData->isValid()) {
             /** @var PromotionInterface $promotion */
             $promotion = $this->container->get($promotionData->getServiceId());
 
@@ -73,16 +73,6 @@ class PromotionRepository implements PromotionRepositoryInterface, ContainerAwar
         }
 
         return null;
-    }
-
-    /**
-     * @param OwnerableInterface $owner
-     *
-     * @return PromotableInterface[]
-     */
-    public function findByOwner(OwnerableInterface $owner)
-    {
-        return $this->repository->findBy(['owner' => $owner]);
     }
 
     /**

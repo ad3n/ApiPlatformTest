@@ -26,7 +26,9 @@ class TwentyPercentDiscountPromotion implements PromotionInterface
     public function calculate(PromotableInterface $promotable)
     {
         $totalAmount = $promotable->getTotalAmount();
-        $promotable->setTotalAmount($totalAmount - ($totalAmount * 0.2));
+        $discount = ($totalAmount * 0.2);
+        $promotable->setTotalAmount($totalAmount - $discount);
+        $promotable->setDiscount($discount);
 
         $promoBenefit = $this->createPromotionBenefit();
         $promoBenefit->setName('Twenty percent discount per transaction');

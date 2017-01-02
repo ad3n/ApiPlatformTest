@@ -35,6 +35,16 @@ interface PromotableInterface
     /**
      * @return float
      */
+    public function getDiscount(): float;
+
+    /**
+     * @param float $discount
+     */
+    public function setDiscount(float $discount);
+
+    /**
+     * @return float
+     */
     public function getTotalAmount(): float;
 
     /**

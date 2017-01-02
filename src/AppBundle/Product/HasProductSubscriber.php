@@ -5,6 +5,7 @@ namespace AppBundle\Product;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>

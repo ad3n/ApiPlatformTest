@@ -49,7 +49,7 @@ class PromotableSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof PromotableInterface) {
@@ -61,9 +61,9 @@ class PromotableSubscriber implements EventSubscriber
     }
 
     /**
-     * @param PreUpdateEventArgs $eventArgs
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof PromotableInterface) {
@@ -79,6 +79,6 @@ class PromotableSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [Events::postLoad, Events::prePersist, Events::preUpdate];
+        return [Events::postLoad, Events::postPersist, Events::postUpdate];
     }
 }

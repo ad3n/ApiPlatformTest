@@ -17,13 +17,6 @@ interface PromotionRepositoryInterface extends RepositoryInterface
     public function findByCode(string $voucherCode);
 
     /**
-     * @param OwnerableInterface $owner
-     *
-     * @return PromotableInterface[]
-     */
-    public function findByOwner(OwnerableInterface $owner);
-
-    /**
      * @return string
      */
     public function getDataClass(): string;

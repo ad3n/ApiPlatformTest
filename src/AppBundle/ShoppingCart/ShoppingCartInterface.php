@@ -83,7 +83,17 @@ interface ShoppingCartInterface
     public function isProcessed(): bool;
 
     /**
+     * @param bool $isProcessed
+     */
+    public function setProcessed(bool $isProcessed);
+
+    /**
      * @return \DateTime|null
      */
     public function getProcessingDate();
+
+    /**
+     * @param \DateTime $processingDate
+     */
+    public function setProcessingDate(\DateTime $processingDate);
 }

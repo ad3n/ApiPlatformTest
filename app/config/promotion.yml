@@ -14,19 +14,12 @@ services:
     app.promotion.promotion_benefit_repository:
         class: AppBundle\Repository\PromotionBenefitRepository
         arguments:
-            - 'AppBundle\Entity\PromotionBenefit'
+            - 'AppBundle\Entity\TransactionBenefit'
 
     app.promotion.promotion_factory:
         class: AppBundle\Promotion\PromotionFactory
         arguments:
             - '@app.promotion.promotion_repository'
-
-    app.promotion.promotion_owner_subscriber:
-        class: AppBundle\Promotion\PromotionOwnerSubscriber
-        arguments:
-            - '@app.promotion.promotion_repository'
-        tags:
-            - { name: 'doctrine.event_subscriber' }
 
     app.promotion.promotion_benefit_subscriber:
         class: AppBundle\Promotion\PromotionBenefitSubscriber
@@ -46,6 +39,6 @@ services:
     app.promotion.twenty_percent_discount:
         class: AppBundle\Promotion\TwentyPercentDiscountPromotion
         arguments:
-            - 'AppBundle\Entity\PromotionBenefit'
+            - 'AppBundle\Entity\TransactionBenefit'
         tags:
             - { name: 'promotion' }

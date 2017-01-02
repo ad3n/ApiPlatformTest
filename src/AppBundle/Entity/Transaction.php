@@ -6,19 +6,22 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
 use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionBenefitInterface;
-use AppBundle\ShoppingCart\ItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 use AppBundle\Transaction\OwnerableInterface;
 use AppBundle\Transaction\TransactionInterface;
 use AppBundle\Util\TransactionStatus;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="transactions")
  *
- * @ApiResource()
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"read"}}
+ * })
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -33,6 +36,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read"})
      */
     private $id;
 
@@ -40,6 +45,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Groups({"read"})
      */
     private $transactionDate;
 
@@ -48,6 +55,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     *
+     * @Groups({"read"})
      */
     private $owner;
 
@@ -56,6 +65,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\ShoppingCart")
      * @ORM\JoinColumn(name="shoppingcart_id", referencedColumnName="id")
+     *
+     * @Groups({"read"})
      */
     private $shoppingCart;
 
@@ -63,6 +74,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Groups({"read"})
      */
     private $voucherCode;
 
@@ -70,6 +83,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $totalAmount;
 
@@ -77,6 +92,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $subTotal;
 
@@ -84,6 +101,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $tax;
 
@@ -91,6 +110,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $surchargeFee;
 
@@ -98,6 +119,8 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $deliveryFee;
 
@@ -105,6 +128,17 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var float
      *
      * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
+     */
+    private $discount;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="float")
+     *
+     * @Groups({"read"})
      */
     private $transactionStatus;
 
@@ -112,11 +146,13 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @Groups({"read"})
      */
     private $completedAt;
 
     /**
-     * @var ItemInterface[]
+     * @var ShoppingCartItemInterface[]
      */
     private $items;
 
@@ -124,6 +160,17 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @var PromotionBenefitInterface[]
      */
     private $benefits;
+
+    public function __construct()
+    {
+        $this->totalAmount = 0;
+        $this->subTotal = 0;
+        $this->tax = 0;
+        $this->surchargeFee = 0;
+        $this->deliveryFee = 0;
+        $this->discount = 0;
+        $this->transactionStatus = TransactionStatus::PENDING;
+    }
 
     /**
      * @return int
@@ -304,6 +351,22 @@ class Transaction implements TransactionInterface, PromotableInterface
     }
 
     /**
+     * @return float
+     */
+    public function getDiscount(): float
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param float $discount
+     */
+    public function setDiscount(float $discount)
+    {
+        $this->discount = $discount;
+    }
+
+    /**
      * @return string
      */
     public function getTransactionStatus(): string
@@ -347,7 +410,7 @@ class Transaction implements TransactionInterface, PromotableInterface
     }
 
     /**
-     * @return ItemInterface[]
+     * @return ShoppingCartItemInterface[]
      */
     public function getItems(): array
     {
@@ -355,7 +418,7 @@ class Transaction implements TransactionInterface, PromotableInterface
     }
 
     /**
-     * @param ItemInterface[] $items
+     * @param ShoppingCartItemInterface[] $items
      */
     public function setItems(array $items)
     {
@@ -365,9 +428,9 @@ class Transaction implements TransactionInterface, PromotableInterface
     }
 
     /**
-     * @param ItemInterface $item
+     * @param ShoppingCartItemInterface $item
      */
-    public function addItem(ItemInterface $item)
+    public function addItem(ShoppingCartItemInterface $item)
     {
         $this->items[] = $item;
     }

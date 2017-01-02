@@ -2,7 +2,7 @@
 
 namespace AppBundle\Transaction;
 
-use AppBundle\ShoppingCart\ItemInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
 
 /**
@@ -91,12 +91,22 @@ interface TransactionInterface
     public function setDeliveryFee(float $deliveryFee);
 
     /**
-     * @param ItemInterface $item
+     * @return float
      */
-    public function addItem(ItemInterface $item);
+    public function getDiscount(): float;
 
     /**
-     * @return ItemInterface[]
+     * @param float $discount
+     */
+    public function setDiscount(float $discount);
+
+    /**
+     * @param ShoppingCartItemInterface $item
+     */
+    public function addItem(ShoppingCartItemInterface $item);
+
+    /**
+     * @return ShoppingCartItemInterface[]
      */
     public function getItems(): array;
 
