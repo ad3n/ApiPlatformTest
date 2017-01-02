@@ -30,3 +30,8 @@ services:
         tags:
             -  { name: 'api_platform.collection_data_provider', priority: 2 }
             -  { name: 'api_platform.item_data_provider', priority: 2 }
+
+    owner.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments: [ { owner: 'exact' } ]
+        tags:      [ { name: 'api_platform.filter', id: 'owner.search' } ]

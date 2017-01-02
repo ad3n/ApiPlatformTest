@@ -736,7 +736,7 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
      */
     public function getFiles(): array
     {
-        return $this->files;
+        return $this->files ?: [];
     }
 
     /**
@@ -762,6 +762,6 @@ class Diamond implements DiamondInterface, OwnerableInterface, PricableInterface
      */
     public function getPriceHistories(): array
     {
-        return $this->priceLogs;
+        return $this->priceLogs ?: [];
     }
 }

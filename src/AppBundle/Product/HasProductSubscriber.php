@@ -35,7 +35,7 @@ class HasProductSubscriber implements EventSubscriber
         }
 
         $this->productFactory->setManager($args->getObjectManager());
-        $product = $this->productFactory->getProduct($entity->getProductId(), $entity->getProductSource());
+        $product = $this->productFactory->getProduct($entity->getProductId(), $entity->getProductClass());
 
         if ($product instanceof ProductInterface) {
             $entity->setProduct($product);

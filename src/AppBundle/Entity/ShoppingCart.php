@@ -243,7 +243,7 @@ class ShoppingCart implements ShoppingCartInterface
      */
     public function getItems(): array
     {
-        return $this->items;
+        return $this->items ?: [];
     }
 
     /**

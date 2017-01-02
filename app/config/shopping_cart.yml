@@ -10,3 +10,15 @@ services:
             - '@app.shopping_cart.shopping_cart_repository'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    app.shopping_cart.shopping_cart_item_repository:
+        class: AppBundle\Repository\ShoppingCartItemRepository
+        arguments:
+            - 'AppBundle\Entity\ShoppingCartItem'
+
+    app.shopping_cart.shopping_cart_subscriber:
+        class: AppBundle\ShoppingCart\ShoppingCartSubscriber
+        arguments:
+            - '@app.shopping_cart.shopping_cart_item_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }

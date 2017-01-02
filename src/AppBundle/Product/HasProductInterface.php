@@ -18,6 +18,11 @@ interface HasProductInterface
     public function getProductSource(): string;
 
     /**
+     * @return string
+     */
+    public function getProductClass(): string;
+
+    /**
      * @return ProductInterface|null
      */
     public function getProduct();

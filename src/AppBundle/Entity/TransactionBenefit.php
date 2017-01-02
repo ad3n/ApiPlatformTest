@@ -268,6 +268,14 @@ class TransactionBenefit implements PromotionBenefitInterface, HasProductInterfa
     }
 
     /**
+     * @return string
+     */
+    public function getProductClass(): string
+    {
+        return $this->productSource;
+    }
+
+    /**
      * @param ProductInterface $product
      */
     public function setProduct(ProductInterface $product)

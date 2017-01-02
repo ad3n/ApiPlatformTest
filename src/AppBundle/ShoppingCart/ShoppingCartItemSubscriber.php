@@ -36,8 +36,7 @@ class ShoppingCartItemSubscriber implements EventSubscriber
         }
 
         $product = $this->repository->find($entity->getProductId());
-
-        $entity->setProduct();
+        $entity->setProduct($product);
     }
 
     /**
