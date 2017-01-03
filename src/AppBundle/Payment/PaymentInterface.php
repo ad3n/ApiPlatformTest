@@ -5,7 +5,7 @@ namespace AppBundle\Payment;
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface PaymentableInterface
+interface PaymentInterface
 {
     /**
      * @return \DateTime

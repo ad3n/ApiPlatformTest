@@ -4,10 +4,12 @@ namespace AppBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use AppBundle\ActionLogger\ActionLoggable;
+use AppBundle\Payment\OwnerableInterface as PaymentOwnerInterface;
+use AppBundle\Payment\PaymentInterface;
 use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionBenefitInterface;
-use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use AppBundle\ShoppingCart\ShoppingCartInterface;
+use AppBundle\ShoppingCart\ShoppingCartItemInterface;
 use AppBundle\Transaction\OwnerableInterface;
 use AppBundle\Transaction\TransactionInterface;
 use AppBundle\Util\TransactionStatus;
@@ -25,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class Transaction implements TransactionInterface, PromotableInterface
+class Transaction implements TransactionInterface, PromotableInterface, PaymentOwnerInterface
 {
     use Timestampable;
     use ActionLoggable;
@@ -150,6 +152,11 @@ class Transaction implements TransactionInterface, PromotableInterface
      * @Groups({"read"})
      */
     private $completedAt;
+
+    /**
+     * @var PaymentInterface
+     */
+    private $payment;
 
     /**
      * @var ShoppingCartItemInterface[]
@@ -407,6 +414,22 @@ class Transaction implements TransactionInterface, PromotableInterface
     public function setCompletedAt(\DateTime $completedAt)
     {
         $this->completedAt = $completedAt;
+    }
+
+    /**
+     * @return PaymentInterface|null
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @param PaymentInterface $payment
+     */
+    public function setPayment(PaymentInterface $payment)
+    {
+        $this->payment = $payment;
     }
 
     /**
