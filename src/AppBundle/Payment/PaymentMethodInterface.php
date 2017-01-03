@@ -7,4 +7,20 @@ namespace AppBundle\Payment;
  */
 interface PaymentMethodInterface
 {
+    /**
+     * @param Payload $payload
+     *
+     * @return Response
+     */
+    public function requestPayment(Payload $payload);
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @return string
+     */
+    public function getPaymentType(): string;
 }

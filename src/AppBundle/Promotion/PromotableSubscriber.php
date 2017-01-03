@@ -4,7 +4,6 @@ namespace AppBundle\Promotion;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**
@@ -24,7 +23,7 @@ class PromotableSubscriber implements EventSubscriber
 
     /**
      * @param PromotionBenefitRepositoryInterface $promotionBenefitRepository
-     * @param PromotionFactory $promotionFactory
+     * @param PromotionFactory                    $promotionFactory
      */
     public function __construct(PromotionBenefitRepositoryInterface $promotionBenefitRepository, PromotionFactory $promotionFactory)
     {

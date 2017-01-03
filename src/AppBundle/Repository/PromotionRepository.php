@@ -3,7 +3,6 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Promotion\OwnerableInterface;
-use AppBundle\Promotion\PromotableInterface;
 use AppBundle\Promotion\PromotionInterface;
 use AppBundle\Promotion\PromotionRepositoryInterface;
 use Doctrine\Common\Persistence\ObjectManager;

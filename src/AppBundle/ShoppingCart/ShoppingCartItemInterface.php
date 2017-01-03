@@ -36,9 +36,9 @@ interface ShoppingCartItemInterface
 
     /**
      * @param string $key
-     * @param string $value
+     * @param mixed  $value
      */
-    public function addMetadata(string $key, string $value);
+    public function addMetadata(string $key, $value);
 
     /**
      * @param array $metadata

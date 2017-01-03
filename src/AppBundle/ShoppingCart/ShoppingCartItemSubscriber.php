@@ -7,7 +7,6 @@ use AppBundle\Product\ProductFactory;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**
@@ -32,7 +31,7 @@ class ShoppingCartItemSubscriber implements EventSubscriber
 
     /**
      * @param ShoppingCartItemRepositoryInterface $shoppingCartItemRepository
-     * @param ProductFactory $productFactory
+     * @param ProductFactory                      $productFactory
      */
     public function __construct(ShoppingCartItemRepositoryInterface $shoppingCartItemRepository, ProductFactory $productFactory)
     {

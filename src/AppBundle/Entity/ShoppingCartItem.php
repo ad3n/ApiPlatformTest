@@ -198,9 +198,9 @@ class ShoppingCartItem implements ShoppingCartItemInterface, HasProductInterface
 
     /**
      * @param string $key
-     * @param string $value
+     * @param mixed  $value
      */
-    public function addMetadata(string $key, string $value)
+    public function addMetadata(string $key, $value)
     {
         $this->metadata[$key] = $value;
     }

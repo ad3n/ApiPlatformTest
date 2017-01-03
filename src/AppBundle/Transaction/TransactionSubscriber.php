@@ -6,7 +6,6 @@ use AppBundle\ShoppingCart\ShoppingCartInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
 
 /**
@@ -65,7 +64,7 @@ class TransactionSubscriber implements EventSubscriber
     }
 
     /**
-     * @param TransactionInterface $transaction
+     * @param TransactionInterface  $transaction
      * @param ShoppingCartInterface $shoppingCart
      */
     private function updateTransaction(TransactionInterface $transaction, ShoppingCartInterface $shoppingCart)
