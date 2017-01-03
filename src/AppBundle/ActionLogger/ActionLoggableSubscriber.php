@@ -57,7 +57,7 @@ class ActionLoggableSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $eventArgs
      */
-    public function prePersist(LifecycleEventArgs $eventArgs)
+    public function postPersist(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
@@ -68,9 +68,9 @@ class ActionLoggableSubscriber implements EventSubscriber
     }
 
     /**
-     * @param PreUpdateEventArgs $eventArgs
+     * @param LifecycleEventArgs $eventArgs
      */
-    public function preUpdate(PreUpdateEventArgs $eventArgs)
+    public function postUpdate(LifecycleEventArgs $eventArgs)
     {
         $entity = $eventArgs->getEntity();
         if (!$entity instanceof ActionLoggable) {
@@ -103,6 +103,6 @@ class ActionLoggableSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [Events::loadClassMetadata, Events::prePersist, Events::preUpdate];
+        return [Events::loadClassMetadata, Events::postPersist, Events::postUpdate];
     }
 }

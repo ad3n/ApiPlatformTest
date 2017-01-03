@@ -30,7 +30,7 @@ class AssetSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -42,9 +42,9 @@ class AssetSubscriber implements EventSubscriber
     }
 
     /**
-     * @param PreUpdateEventArgs $args
+     * @param LifecycleEventArgs $args
      */
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function postUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
@@ -92,6 +92,6 @@ class AssetSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [Events::postLoad, Events::prePersist, Events::preUpdate];
+        return [Events::postLoad, Events::postPersist, Events::postUpdate];
     }
 }

@@ -2,13 +2,13 @@
 
 namespace AppBundle\Transaction;
 
+use AppBundle\ShoppingCart\OwnerableInterface as ShoppingCartOwnerInterface;
 use AppBundle\ShoppingCart\ShoppingCartItemInterface;
-use AppBundle\ShoppingCart\ShoppingCartInterface;
 
 /**
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-interface TransactionInterface
+interface TransactionInterface extends ShoppingCartOwnerInterface
 {
     /**
      * @return int
@@ -29,16 +29,6 @@ interface TransactionInterface
      * @return OwnerableInterface
      */
     public function getOwner(): OwnerableInterface;
-
-    /**
-     * @return ShoppingCartInterface
-     */
-    public function getShoppingCart(): ShoppingCartInterface;
-
-    /**
-     * @param ShoppingCartInterface $shoppingCart
-     */
-    public function setShoppingCart(ShoppingCartInterface $shoppingCart);
 
     /**
      * @return float
