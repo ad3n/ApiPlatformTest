@@ -26,6 +26,20 @@ class PaymentFactory
     }
 
     /**
+     * @param string $paymentMethod
+     *
+     * @return PaymentMethodInterface
+     */
+    public function getPaymentMethod(string $paymentMethod): PaymentMethodInterface
+    {
+        if (!array_key_exists($paymentMethod, $this->paymentMethods)) {
+            throw new \InvalidArgumentException(sprintf('Payment method %s not found', $paymentMethod));
+        }
+
+        return $this->paymentMethods[$paymentMethod];
+    }
+
+    /**
      * @param string  $paymentMethod
      * @param Payload $payload
      */

@@ -1,6 +1,7 @@
 imports:
     - { resource: asset.yml }
     - { resource: parameters.yml }
+    - { resource: payment.yml }
     - { resource: price.yml }
     - { resource: product.yml }
     - { resource: promotion.yml}

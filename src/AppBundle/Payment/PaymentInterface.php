@@ -23,14 +23,19 @@ interface PaymentInterface
     public function setOwner(OwnerableInterface $transaction);
 
     /**
-     * @return string
+     * @return PaymentMethodInterface
      */
-    public function getPaymentMethod(): string;
+    public function getPaymentMethod(): PaymentMethodInterface;
 
     /**
-     * @return Payload
+     * @param PaymentMethodInterface $paymentMethod
      */
-    public function getPayload(): Payload;
+    public function setPaymentMethod(PaymentMethodInterface $paymentMethod);
+
+    /**
+     * @return Payload|null
+     */
+    public function getPayload();
 
     /**
      * @param Payload $payload
@@ -38,9 +43,9 @@ interface PaymentInterface
     public function setPayload(Payload $payload);
 
     /**
-     * @return Response
+     * @return Response|null
      */
-    public function getResponse(): Response;
+    public function getResponse();
 
     /**
      * @param Response $response
@@ -51,4 +56,9 @@ interface PaymentInterface
      * @return string
      */
     public function getPaymentStatus(): string;
+
+    /**
+     * @param PaymentFactory $paymentFactory
+     */
+    public function setPaymentFactory(PaymentFactory $paymentFactory);
 }

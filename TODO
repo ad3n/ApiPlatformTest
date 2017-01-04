@@ -14,8 +14,9 @@
 - Create Transaction Item Subscriber - Done
 - Shopping Cart to Transaction Transformer (Order Management) - Done
 - Shopping Item - Product ID to Product Transformer - Done
-- Payment - Implement Payment Interface
+- Payment - Implement Payment Interface - Done
 - Payment - Create Payment Subscriber
+- Create Payment Compiler Pass - Done
 - Customer
 - Product Sibling
 

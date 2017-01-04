@@ -4,6 +4,7 @@ namespace AppBundle;
 
 use AppBundle\DependencyInjection\Compiler\AssetOwnerCompilerPass;
 use AppBundle\DependencyInjection\Compiler\AssetOwnerRepositoryCompilerPass;
+use AppBundle\DependencyInjection\Compiler\PaymentCompilerPass;
 use AppBundle\DependencyInjection\Compiler\PriceCalculatorCompilerPass;
 use AppBundle\DependencyInjection\Compiler\ProductRepositoryCompilerPass;
 use AppBundle\DependencyInjection\Compiler\PromotionCompilerPass;
@@ -20,5 +21,6 @@ class AppBundle extends Bundle
         $container->addCompilerPass(new PromotionCompilerPass());
         $container->addCompilerPass(new AssetOwnerRepositoryCompilerPass());
         $container->addCompilerPass(new ProductRepositoryCompilerPass());
+        $container->addCompilerPass(new PaymentCompilerPass());
     }
 }

@@ -16,12 +16,12 @@ services:
         tags:
             - { name: 'price_calculator' }
 
-#    app.price.price_log_subscriber:
-#        class: AppBundle\Price\PriceLogSubscriber
-#        arguments:
-#            - '@app.price.price_log_repository'
-#        tags:
-#            - { name: 'doctrine.event_subscriber' }
+    app.price.price_log_subscriber:
+        class: AppBundle\Price\PriceLogSubscriber
+        arguments:
+            - '@app.price.price_log_repository'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
 
     app.price.price_calculator_subscriber:
         class: AppBundle\Price\PriceCalculatorSubscriber

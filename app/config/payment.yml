@@ -1,0 +1,10 @@
+services:
+    app.payment.payment_factory:
+        class: AppBundle\Payment\PaymentFactory
+
+    app.payment.payment_subscriber:
+        class: AppBundle\Payment\PaymentSubscriber
+        arguments:
+            - '@app.payment.payment_factory'
+        tags:
+            - { name: 'doctrine.event_subscriber' }
