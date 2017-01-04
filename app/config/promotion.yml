@@ -42,3 +42,13 @@ services:
             - 'AppBundle\Entity\TransactionBenefit'
         tags:
             - { name: 'promotion' }
+
+    app.promotion.data_provider.promotion_data_provider:
+        class: AppBundle\Promotion\DataProvider\PromotionDataProvider
+        arguments:
+            - '%promotion%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }

@@ -10,6 +10,7 @@ use AppBundle\Payment\PaymentFactory;
 use AppBundle\Payment\PaymentInterface;
 use AppBundle\Payment\PaymentMethodInterface;
 use AppBundle\Payment\Response;
+use AppBundle\Util\PaymentStatus;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
@@ -58,18 +59,18 @@ class Payment implements PaymentInterface
     private $paymentMethod;
 
     /**
-     * @var Payload
+     * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $payload;
+    private $metadata;
 
     /**
-     * @var Response
+     * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $response;
+    private $responseData;
 
     /**
      * @var string
@@ -82,6 +83,23 @@ class Payment implements PaymentInterface
      * @var PaymentFactory
      */
     private $paymentFactory;
+
+    /**
+     * @var Payload
+     */
+    private $payload;
+
+    /**
+     * @var Response
+     */
+    private $response;
+
+    public function __construct()
+    {
+        $this->payload = new Payload();
+        $this->response = new Response();
+        $this->paymentStatus = PaymentStatus::PENDING;
+    }
 
     /**
      * @return int
@@ -132,26 +150,26 @@ class Payment implements PaymentInterface
     }
 
     /**
-     * @param PaymentMethodInterface $paymentMethod
+     * @param string $paymentMethod
      */
-    public function setPaymentMethod(PaymentMethodInterface $paymentMethod)
+    public function setPaymentMethod(string $paymentMethod)
     {
-        $this->paymentMethod = $paymentMethod->getName();
+        $this->paymentMethod = $paymentMethod;
     }
 
     /**
-     * @return Payload|null
+     * @return Payload
      */
-    public function getPayload()
+    public function getPayload(): Payload
     {
-        if (!$this->owner || !$this->payload) {
+        if (!$this->owner || !$this->metadata) {
             return null;
         }
 
-        $payload = new Payload();
-        $payload->setOwner($this->owner);
+        $this->payload->setOwner($this->owner);
+        $this->payload->unserialize($this->metadata);
 
-        return $payload->unserialize($this->payload);
+        return $this->payload;
     }
 
     /**
@@ -159,7 +177,42 @@ class Payment implements PaymentInterface
      */
     public function setPayload(Payload $payload)
     {
-        $this->payload = $payload->serialize();
+        $this->payload = $payload;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMetaData(): array
+    {
+        $payload = $this->getPayload();
+
+        return $payload->getMetadata();
+    }
+
+    /**
+     * @param array $metadata
+     */
+    public function setMetadata(array $metadata)
+    {
+        $this->payload->setMetadata($metadata);
+        $this->metadata = $this->payload->serialize();
+    }
+
+    /**
+     * @return string
+     */
+    public function getResponseData(): string
+    {
+        return $this->responseData;
+    }
+
+    /**
+     * @param string $responseData
+     */
+    public function setResponseData(string $responseData)
+    {
+        $this->responseData = $responseData;
     }
 
     /**
@@ -167,12 +220,13 @@ class Payment implements PaymentInterface
      */
     public function getResponse(): Response
     {
-        if (!$this->owner || !$this->response) {
+        if (!$this->owner || !$this->responseData) {
             return null;
         }
-        $response = new Response();
 
-        return $response->unserialize($this->owner, $this->response);
+        $this->response->unserialize($this->owner, $this->responseData);
+
+        return $this->response;
     }
 
     /**

@@ -100,7 +100,7 @@ class ActionLoggableSubscriber implements EventSubscriber
      *
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [Events::loadClassMetadata, Events::postPersist, Events::postUpdate];
     }

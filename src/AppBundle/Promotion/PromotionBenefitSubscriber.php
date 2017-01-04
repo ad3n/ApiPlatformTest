@@ -67,7 +67,7 @@ class PromotionBenefitSubscriber implements EventSubscriber
     /**
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [Events::postLoad, Events::postPersist, Events::postUpdate];
     }

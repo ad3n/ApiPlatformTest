@@ -6,6 +6,7 @@ use ApiPlatform\Core\DataProvider\CollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\Exception\ResourceClassNotSupportedException;
 use AppBundle\Entity\PaymentMethod;
+use AppBundle\Payment\PaymentMethodInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -89,12 +90,13 @@ class PaymentMethodDataProvider implements ContainerAwareInterface, CollectionDa
     {
         $paymentMethods = [];
         foreach ($this->paymentMethods as $id => $paymentMethod) {
-            $reflection = new \ReflectionObject($this->container->get($paymentMethod));
+            /** @var PaymentMethodInterface $method */
+            $method = $this->container->get($paymentMethod);
 
             $calculator = new PaymentMethod();
             $calculator->setId($id);
             $calculator->setServiceId($paymentMethod);
-            $calculator->setName(StringUtil::camelCaseToWord($reflection->getShortName()));
+            $calculator->setName($method->getName());
 
             $paymentMethods[] = $calculator;
         }

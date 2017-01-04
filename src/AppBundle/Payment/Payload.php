@@ -79,7 +79,7 @@ class Payload
             throw new \RuntimeException('call "setOwner" method before unserializing');
         }
 
-        $this->metadata = $this->unserialize($payload);
+        $this->metadata = unserialize($payload);
 
         return $this;
     }

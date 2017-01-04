@@ -59,7 +59,7 @@ class PriceCalculatorSubscriber implements EventSubscriber
      *
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [Events::postPersist, Events::postUpdate];
     }

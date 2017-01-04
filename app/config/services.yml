@@ -11,26 +11,6 @@ services:
         tags:
             - { name: 'doctrine.event_subscriber' }
 
-    app.price.data_provider.price_calculator_data_provider:
-        class: AppBundle\Price\DataProvider\PriceCalculatorDataProvider
-        arguments:
-            - '%price_calculator%'
-        calls:
-            - [setContainer, ['@service_container']]
-        tags:
-            -  { name: 'api_platform.collection_data_provider', priority: 2 }
-            -  { name: 'api_platform.item_data_provider', priority: 2 }
-
-    app.promotion.data_provider.promotion_data_provider:
-        class: AppBundle\Promotion\DataProvider\PromotionDataProvider
-        arguments:
-            - '%promotion%'
-        calls:
-            - [setContainer, ['@service_container']]
-        tags:
-            -  { name: 'api_platform.collection_data_provider', priority: 2 }
-            -  { name: 'api_platform.item_data_provider', priority: 2 }
-
     owner.search_filter:
         parent:    'api_platform.doctrine.orm.search_filter'
         arguments: [ { owner: 'exact' } ]

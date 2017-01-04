@@ -18,3 +18,8 @@ services:
         tags:
             -  { name: 'api_platform.collection_data_provider', priority: 2 }
             -  { name: 'api_platform.item_data_provider', priority: 2 }
+
+    app.payment.method.manual_payment:
+        class: AppBundle\Payment\Method\ManualPayment
+        tags:
+            - { name: 'payment_method' }

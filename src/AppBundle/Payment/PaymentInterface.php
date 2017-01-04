@@ -28,14 +28,14 @@ interface PaymentInterface
     public function getPaymentMethod(): PaymentMethodInterface;
 
     /**
-     * @param PaymentMethodInterface $paymentMethod
+     * @param string $paymentMethod
      */
-    public function setPaymentMethod(PaymentMethodInterface $paymentMethod);
+    public function setPaymentMethod(string $paymentMethod);
 
     /**
-     * @return Payload|null
+     * @return Payload
      */
-    public function getPayload();
+    public function getPayload(): Payload;
 
     /**
      * @param Payload $payload
@@ -43,9 +43,19 @@ interface PaymentInterface
     public function setPayload(Payload $payload);
 
     /**
-     * @return Response|null
+     * @return array
      */
-    public function getResponse();
+    public function getMetadata(): array;
+
+    /**
+     * @param array $metadata
+     */
+    public function setMetadata(array $metadata);
+
+    /**
+     * @return Response
+     */
+    public function getResponse(): Response;
 
     /**
      * @param Response $response

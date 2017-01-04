@@ -36,13 +36,15 @@ class PaymentSubscriber implements EventSubscriber
     /**
      * @param LifecycleEventArgs $args
      */
-    public function postLoad(LifecycleEventArgs $args)
+    public function preLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
         if (!$entity instanceof PaymentInterface) {
             return;
         }
 
+        $entity->setPayload(new Payload());
+        $entity->setResponse(new Response());
         $entity->setPaymentFactory($this->paymentFactory);
     }
 
@@ -56,6 +58,7 @@ class PaymentSubscriber implements EventSubscriber
             $this->objectManager = $eventArgs->getObjectManager();
             $this->updateTransactionStatus($entity);
         }
+        exit();
     }
 
     /**
@@ -68,10 +71,20 @@ class PaymentSubscriber implements EventSubscriber
             $this->objectManager = $eventArgs->getObjectManager();
             $this->updateTransactionStatus($entity);
         }
+        exit();
     }
 
+    /**
+     * @param PaymentInterface $payment
+     */
     private function updateTransactionStatus(PaymentInterface $payment)
     {
+        $payment->setPayload(new Payload());
+        $payment->setResponse(new Response());
+        $payment->setPaymentFactory($this->paymentFactory);
+        $this->paymentFactory->paymentRequest($payment->getPaymentMethod()->getName(), $payment->getPayload());
+        $payment->setResponse($this->paymentFactory->getResponse());
+
         /** @var TransactionInterface $transaction */
         $transaction = $payment->getOwner();
         if (in_array($payment->getPaymentStatus(), array(PaymentStatus::SUCCESS, PaymentStatus::VERIFIED))) {
@@ -92,7 +105,7 @@ class PaymentSubscriber implements EventSubscriber
     /**
      * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [Events::postLoad, Events::postPersist, Events::postUpdate];
     }

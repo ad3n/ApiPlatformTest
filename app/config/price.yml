@@ -29,3 +29,13 @@ services:
             - '@app.price.price_factory'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    app.price.data_provider.price_calculator_data_provider:
+        class: AppBundle\Price\DataProvider\PriceCalculatorDataProvider
+        arguments:
+            - '%price_calculator%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }
