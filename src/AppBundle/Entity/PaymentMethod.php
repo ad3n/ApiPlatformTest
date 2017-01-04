@@ -2,15 +2,15 @@
 
 namespace AppBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiProperty;
 
 /**
  * @ApiResource(collectionOperations={"get"={"method"="GET"}}, itemOperations={"get"={"method"="GET"}})
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
-class PriceCalculator
+class PaymentMethod
 {
     /**
      * @var int

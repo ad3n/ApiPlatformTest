@@ -8,3 +8,13 @@ services:
             - '@app.payment.payment_factory'
         tags:
             - { name: 'doctrine.event_subscriber' }
+
+    app.payment.data_provider.payment_data_provider:
+        class: AppBundle\Payment\DataProvider\PaymentMethodDataProvider
+        arguments:
+            - '%payment_method%'
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            -  { name: 'api_platform.collection_data_provider', priority: 2 }
+            -  { name: 'api_platform.item_data_provider', priority: 2 }

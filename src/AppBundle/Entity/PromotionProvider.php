@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
@@ -13,6 +14,8 @@ class PromotionProvider
 {
     /**
      * @var int
+     *
+     * @ApiProperty(identifier=true)
      */
     private $id;
 

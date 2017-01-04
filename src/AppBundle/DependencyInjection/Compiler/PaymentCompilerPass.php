@@ -36,5 +36,7 @@ class PaymentCompilerPass implements CompilerPassInterface
 
             $definition->addMethodCall('addPaymentMethod', [new Reference($id)]);
         }
+
+        $container->setParameter(self::SERVICETAG, $paymentMethods);
     }
 }
