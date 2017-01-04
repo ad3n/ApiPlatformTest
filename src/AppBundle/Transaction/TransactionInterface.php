@@ -111,6 +111,16 @@ interface TransactionInterface extends ShoppingCartOwnerInterface
     public function getTransactionStatus(): string;
 
     /**
+     * @param string $status
+     */
+    public function setTransactionStatus(string $status);
+
+    /**
+     * @return string
+     */
+    public function getTransactionNote(): string;
+
+    /**
      * @return \DateTime|null
      */
     public function getCompletedAt();

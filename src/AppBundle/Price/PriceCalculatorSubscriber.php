@@ -29,7 +29,6 @@ class PriceCalculatorSubscriber implements EventSubscriber
      */
     public function postPersist(LifecycleEventArgs $eventArgs)
     {
-        /** @var PricableInterface $entity */
         $entity = $eventArgs->getEntity();
         if ($entity instanceof PricableInterface) {
             $this->updatePrice($entity);
@@ -41,7 +40,6 @@ class PriceCalculatorSubscriber implements EventSubscriber
      */
     public function postUpdate(LifecycleEventArgs $eventArgs)
     {
-        /** @var PricableInterface $entity */
         $entity = $eventArgs->getEntity();
         if ($entity instanceof PricableInterface) {
             $this->updatePrice($entity);

@@ -19,6 +19,9 @@ class PaymentCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        $paymentMethods = [];
+        $indexStart = 1;
+
         if (!$container->hasDefinition(self::SERVICEID)) {
             return;
         }
@@ -27,6 +30,10 @@ class PaymentCompilerPass implements CompilerPassInterface
 
         $taggedServices = $container->findTaggedServiceIds(self::SERVICETAG);
         foreach ($taggedServices as $id => $tags) {
+            $paymentMethods[$indexStart] = $id;
+
+            ++$indexStart;
+
             $definition->addMethodCall('addPaymentMethod', [new Reference($id)]);
         }
     }

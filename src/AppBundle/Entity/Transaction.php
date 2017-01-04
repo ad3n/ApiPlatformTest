@@ -145,6 +145,15 @@ class Transaction implements TransactionInterface, PromotableInterface, PaymentO
     private $transactionStatus;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @Groups({"read"})
+     */
+    private $transactionNote;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
@@ -398,6 +407,22 @@ class Transaction implements TransactionInterface, PromotableInterface, PaymentO
         }
 
         $this->transactionStatus = $transactionStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTransactionNote(): string
+    {
+        return $this->transactionNote;
+    }
+
+    /**
+     * @param string $transactionNote
+     */
+    public function setTransactionNote(string $transactionNote)
+    {
+        $this->transactionNote = $transactionNote;
     }
 
     /**
