@@ -13,12 +13,15 @@ use AppBundle\Payment\Response;
 use AppBundle\Util\PaymentStatus;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="payments")
  *
- * @ApiResource()
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"read"}}
+ * })
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */
@@ -33,6 +36,8 @@ class Payment implements PaymentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups({"read"})
      */
     private $id;
 
@@ -40,6 +45,8 @@ class Payment implements PaymentInterface
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Groups({"read"})
      */
     private $paymentDate;
 
@@ -48,13 +55,17 @@ class Payment implements PaymentInterface
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transaction")
      * @ORM\JoinColumn(name="transaction_id", referencedColumnName="id")
+     *
+     * @Groups({"read"})
      */
-    private $owner;
+    private $transaction;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Groups({"read"})
      */
     private $paymentMethod;
 
@@ -62,6 +73,8 @@ class Payment implements PaymentInterface
      * @var string
      *
      * @ORM\Column(type="text", nullable=true)
+     *
+     * @Groups({"read"})
      */
     private $metadata;
 
@@ -69,6 +82,8 @@ class Payment implements PaymentInterface
      * @var string
      *
      * @ORM\Column(type="text", nullable=true)
+     *
+     * @Groups({"read"})
      */
     private $responseData;
 
@@ -76,6 +91,8 @@ class Payment implements PaymentInterface
      * @var string
      *
      * @ORM\Column(type="string")
+     *
+     * @Groups({"read"})
      */
     private $paymentStatus;
 
@@ -130,7 +147,7 @@ class Payment implements PaymentInterface
      */
     public function getOwner(): OwnerableInterface
     {
-        return $this->owner;
+        return $this->transaction;
     }
 
     /**
@@ -138,7 +155,7 @@ class Payment implements PaymentInterface
      */
     public function setOwner(OwnerableInterface $owner)
     {
-        $this->owner = $owner;
+        $this->transaction = $owner;
     }
 
     /**
@@ -162,12 +179,15 @@ class Payment implements PaymentInterface
      */
     public function getPayload(): Payload
     {
-        if (!$this->owner || !$this->metadata) {
+        if (!$this->transaction) {
             return null;
         }
 
-        $this->payload->setOwner($this->owner);
-        $this->payload->unserialize($this->metadata);
+        $this->payload->setOwner($this->transaction);
+
+        if ($this->metadata) {
+            $this->payload->unserialize($this->metadata);
+        }
 
         return $this->payload;
     }
@@ -220,11 +240,11 @@ class Payment implements PaymentInterface
      */
     public function getResponse(): Response
     {
-        if (!$this->owner || !$this->responseData) {
+        if (!$this->transaction || !$this->responseData) {
             return null;
         }
 
-        $this->response->unserialize($this->owner, $this->responseData);
+        $this->response->unserialize($this->transaction, $this->responseData);
 
         return $this->response;
     }
@@ -235,6 +255,7 @@ class Payment implements PaymentInterface
     public function setResponse(Response $response)
     {
         $this->response = $response;
+        $this->responseData = $response->serialize();
     }
 
     /**

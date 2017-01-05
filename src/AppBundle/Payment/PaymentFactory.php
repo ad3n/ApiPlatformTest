@@ -51,8 +51,8 @@ class PaymentFactory
 
         /** @var PaymentMethodInterface $method */
         $method = $this->paymentMethods[$paymentMethod];
-        $this->response->setPaymentType($method->getPaymentType());
         $this->response = $method->requestPayment($payload);
+        $this->response->setPaymentType($method->getPaymentType());
     }
 
     /**

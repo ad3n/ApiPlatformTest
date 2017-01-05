@@ -47,6 +47,6 @@ class PriceLogRepository implements PriceLogRepositoryInterface
      */
     public function findByOwner(PricableInterface $owner): array
     {
-        return $this->repository->findBy(['owner' => get_class($owner), 'sourceId' => $owner->getId()]);
+        return $this->repository->findBy(['transaction' => get_class($owner), 'sourceId' => $owner->getId()]);
     }
 }
