@@ -47,6 +47,6 @@ class ShoppingCartItemRepository implements ShoppingCartItemRepositoryInterface
      */
     public function findByOwner(ShoppingCartInterface $owner)
     {
-        return $this->repository->findBy(['transaction' => $owner]);
+        return $this->repository->findBy(['owner' => $owner]);
     }
 }

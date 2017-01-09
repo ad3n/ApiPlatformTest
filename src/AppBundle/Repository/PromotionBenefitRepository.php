@@ -47,6 +47,6 @@ class PromotionBenefitRepository implements PromotionBenefitRepositoryInterface
      */
     public function findByOwner(PromotableInterface $owner): array
     {
-        return $this->repository->findBy(['transaction' => $owner]);
+        return $this->repository->findBy(['owner' => $owner]);
     }
 }

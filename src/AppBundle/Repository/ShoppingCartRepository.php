@@ -63,7 +63,7 @@ class ShoppingCartRepository implements ShoppingCartRepositoryInterface
      */
     public function findByOwner(OwnerableInterface $owner)
     {
-        $shoppingCart = $this->repository->findOneBy(['transaction' => $owner, 'isProcessed' => false]);
+        $shoppingCart = $this->repository->findOneBy(['owner' => $owner, 'isProcessed' => false]);
 
         if ($shoppingCart instanceof ShoppingCartInterface && !$shoppingCart->isProcessed()) {
             return $shoppingCart;

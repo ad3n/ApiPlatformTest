@@ -16,10 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity()
  * @ORM\Table(name="shoppingcart_items")
  *
- * @ApiResource(attributes={
- *     "normalization_context"={"groups"={"read"}},
- *     "filters"={"owner.search"}
- * })
+ * @ApiResource()
  *
  * @author Muhammad Surya Ihsanuddin <surya.kejawen@gmail.com>
  */

@@ -47,6 +47,6 @@ class TransactionRepository implements TransactionRepositoryInterface
      */
     public function findByOwner(OwnerableInterface $owner)
     {
-        return $this->repository->findBy(['transaction' => $owner]);
+        return $this->repository->findBy(['owner' => $owner]);
     }
 }

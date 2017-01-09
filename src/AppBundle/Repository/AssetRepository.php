@@ -47,7 +47,7 @@ class AssetRepository implements AssetRepositoryInterface
      */
     public function findByOwner(string $owner, int $sourceId): array
     {
-        return $this->repository->findBy(['transaction' => $owner, 'sourceId' => $sourceId]);
+        return $this->repository->findBy(['owner' => $owner, 'sourceId' => $sourceId]);
     }
 
     /**
@@ -59,6 +59,6 @@ class AssetRepository implements AssetRepositoryInterface
      */
     public function findByOwnerAndGroup(string $owner, int $sourceId, string $group): array
     {
-        return $this->repository->findBy(['transaction' => $owner, 'sourceId' => $sourceId, 'group' => $group]);
+        return $this->repository->findBy(['owner' => $owner, 'sourceId' => $sourceId, 'group' => $group]);
     }
 }
